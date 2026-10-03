@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { isPublished } from '../../lib/content';
+const entries = await getCollection('notes', (entry) => isPublished(entry));
+---
+<BaseLayout title="笔记">
+  <div class="page wide">
+    <p class="eyebrow">Notes</p><h1>笔记</h1>
+    <p class="lead">课程、工具和其他长期积累的参考资料。</p>
+    <ul class="link-list">
+      {entries.map((entry) => (
+        <li><a href={`/notes/${entry.slug}/`}><strong>{entry.data.title}</strong><span>{entry.data.description}</span></a></li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

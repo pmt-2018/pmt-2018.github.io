@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'pmt2018', description = '个人学术主页与学习资料库' } = Astro.props;
+const pathname = Astro.url.pathname;
+const navigation = [
+  { href: '/about/', label: 'About' },
+  { href: '/teaching/', label: 'Teaching' },
+  { href: '/algorithms/', label: 'Algorithms' },
+  { href: '/cv/', label: 'CV' },
+];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="data:," />
+    <title>{title} · pmt2018</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-title" href="/">pmt2018</a>
+        <nav aria-label="主导航">
+          {navigation.map((item) => (
+            <a class:list={[{ active: item.href !== '/' && pathname.startsWith(item.href) }, { active: item.href === '/' && pathname === '/' }]} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </header>
+      <main><slot /></main>
+      <footer class="site-footer">
+        <span>内容优先，静态生成。</span>
+        <a href="https://github.com/pmt-2018/pmt-2018.github.io">源代码</a>
+      </footer>
+    </div>
+  </body>
+</html>
