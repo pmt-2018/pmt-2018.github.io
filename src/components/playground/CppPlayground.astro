@@ -1,0 +1,54 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  stdin?: string;
+}
+const { code, stdin = '' } = Astro.props;
+---
+
+<section class="cpp-playground" data-runtime-base={`${import.meta.env.BASE_URL}cpp-runtime/`}>
+  <div class="cpp-fallback"><Code code={code} lang="cpp" /></div>
+  <noscript><p>启用 JavaScript 后可修改并运行示例。也可以复制代码，在本地编译运行。</p></noscript>
+  <div class="cpp-interactive" hidden>
+    <label>源代码（GNU C++17）
+      <textarea class="cpp-source" spellcheck="false" autocapitalize="off" autocomplete="off" rows="17">{code}</textarea>
+    </label>
+    <label>标准输入 stdin（运行前填写，读完后为 EOF）
+      <textarea class="cpp-stdin" spellcheck="false" rows="3">{stdin}</textarea>
+    </label>
+    <div class="cpp-actions">
+      <button type="button" data-action="run">运行</button>
+      <button type="button" data-action="stop" disabled>停止</button>
+      <button type="button" data-action="reset">重置</button>
+    </div>
+    <p class="cpp-status" role="status" aria-live="polite">尚未加载编译器。点击运行后开始下载。</p>
+    <div class="cpp-outputs">
+      <div><h3>编译 / 链接诊断</h3><pre class="cpp-diagnostics" tabindex="0">尚未运行</pre></div>
+      <div><h3>标准输出 stdout</h3><pre class="cpp-stdout" tabindex="0">尚未运行</pre></div>
+      <div><h3>标准错误 stderr</h3><pre class="cpp-stderr" tabindex="0">尚未运行</pre></div>
+      <div class="cpp-failure-panel" hidden><h3>工具链 / 浏览器运行失败</h3><pre class="cpp-failure" tabindex="0"></pre></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import './client';
+</script>
+
+<style>
+  .cpp-playground { margin: 2rem 0; }
+  .cpp-interactive { display: grid; gap: 1rem; }
+  [hidden] { display: none !important; }
+  label { display: grid; gap: .45rem; font-size: .95rem; font-weight: 600; }
+  textarea { width: 100%; resize: vertical; padding: .9rem; border: 1px solid #ccc; border-radius: .3rem; background: #fafafa; color: #262626; font: .9rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; tab-size: 4; }
+  .cpp-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+  button { padding: .5rem 1.1rem; border: 1px solid #ccc; border-radius: .3rem; background: white; color: #262626; font: inherit; cursor: pointer; }
+  button[data-action="run"] { border-color: var(--accent-dark); color: var(--accent-dark); }
+  button:disabled { opacity: .45; cursor: default; }
+  :is(button, textarea, pre):focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
+  .cpp-status { margin: 0; color: #555; font-size: .9rem; }
+  .cpp-outputs h3 { margin: 1rem 0 .5rem; font-size: .95rem; }
+  pre { min-height: 3rem; max-height: 20rem; overflow: auto; margin: 0; padding: .9rem; border: 1px solid var(--line); background: #fafafa; white-space: pre-wrap; overflow-wrap: anywhere; font: .85rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+</style>

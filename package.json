@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare:cpp-runtime": "node scripts/prepare-cpp-runtime.mjs",
+    "predev": "npm run prepare:cpp-runtime",
+    "prebuild": "npm run prepare:cpp-runtime",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -11,6 +14,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.14",
+    "@live-codes/clang-wasm": "0.3.0",
     "astro": "5.16.0",
     "katex": "0.16.22",
     "rehype-katex": "7.0.1",
