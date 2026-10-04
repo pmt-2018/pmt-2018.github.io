@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CppPlayground from '../../components/playground/CppPlayground.astro';
+
+const code = `#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int main() {
+    std::string name;
+    int n;
+    if (!(std::cin >> name >> n) || n < 0 || n > 1000) {
+        std::cerr << "请输入名字和 0 到 1000 之间的元素个数\\n";
+        return 1;
+    }
+    std::vector<int> values(n);
+    for (int& value : values) {
+        if (!(std::cin >> value)) {
+            std::cerr << "输入的整数不够\\n";
+            return 1;
+        }
+    }
+    std::sort(values.begin(), values.end());
+    std::cout << "Hello, " << name << "!\\n";
+    for (int value : values) std::cout << value << ' ';
+    std::cout << '\\n';
+}`;
+---
+
+<BaseLayout title="C++ 运行试验" description="使用浏览器本地 Clang/WebAssembly 运行小型 C++ 教学示例。">
+  <div class="page wide">
+    <p class="eyebrow">Experiment · Clang / WebAssembly</p>
+    <h1>C++ 运行试验</h1>
+    <p class="lead">修改代码和输入，尝试一个小例子。编译和运行发生在你的浏览器中。</p>
+    <p>首次运行需要下载约 28 MB 编译器资源，之后复用同一个 Worker。
+      示例使用 GNU C++17；每次编译与运行合计最多 30 秒，可随时停止。</p>
+    <CppPlayground code={code} stdin={'student 5\n5 1 4 3 9\n'} />
+    <div class="prose">
+      <h2>可以试试</h2>
+      <ul>
+        <li>修改名字和整数，观察排序后的输出。</li>
+        <li>删除一个分号，查看带行号的编译诊断。</li>
+        <li>减少输入中的整数，观察 stderr 和退出码。</li>
+        <li>将代码改成 <code>int main() &#123; while (true) &#123;&#125; &#125;</code>，尝试停止或等待超时。</li>
+      </ul>
+      <h2>试验范围</h2>
+      <p>标准输入一次性提供，读完后为 EOF；输出在程序结束后显示。
+        当前 API 不显示成功编译时的警告。此工具链不支持 C++ 异常，
+        WASM/WASI 与课程的 Linux/GCC 环境也有差异。</p>
+      <p>工具链可能占用数百 MB 内存，本试验没有硬性内存配额；适合小型教学示例。
+        平时仍应练习 <code>g++ main.cpp -o main</code>、本地调试和 OJ 提交。</p>
+      <p>使用 <a href="https://github.com/live-codes/clang-wasm">@live-codes/clang-wasm</a>，
+        <a href={`${import.meta.env.BASE_URL}cpp-runtime/THIRD-PARTY-NOTICES.md`}>第三方许可说明</a>。
+      </p>
+    </div>
+  </div>
+</BaseLayout>

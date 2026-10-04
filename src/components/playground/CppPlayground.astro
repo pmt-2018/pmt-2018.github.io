@@ -1,33 +1,79 @@
 ---
-interface Props {
-  code: string;
-  stdin?: string;
-  title?: string;
-}
+import { Code } from 'astro:components';
 
-const { code, stdin = '', title = 'C++ playground' } = Astro.props;
+interface Props {
+  /** Inline source, or source imported from a .cpp file with `?raw` in MDX. */
+  code?: string;
+  source?: string;
+  stdin?: string;
+  sourceName?: string;
+}
+const { code, source, stdin = '', sourceName } = Astro.props;
+const resolvedCode = source ?? code;
+if (!resolvedCode) throw new Error('CppPlayground requires either a `source` or `code` prop.');
 ---
 
-<section class="cpp-playground" aria-label={title}>
-  <div class="cpp-playground-header">
-    <div>
-      <p class="cpp-playground-kicker">Try an example</p>
-      <h3>{title}</h3>
+<section class="cpp-playground" data-runtime-base={`${import.meta.env.BASE_URL}cpp-runtime/`}>
+  <div class="cpp-view-controls">
+    <button type="button" data-action="edit" aria-expanded="false">编辑示例</button>
+  </div>
+  {sourceName && <p class="cpp-source-name">源码文件：<code>{sourceName}</code></p>}
+  <div class="cpp-fallback"><Code code={resolvedCode} lang="cpp" theme="github-light" /></div>
+  <noscript><p>启用 JavaScript 后可修改并运行示例。也可以复制代码，在本地编译运行。</p></noscript>
+  <div class="cpp-interactive" hidden>
+    <div class="cpp-editor-grid">
+      <div class="cpp-editor-pane">
+        <label>源代码（GNU C++17）
+          <textarea class="cpp-source" spellcheck="false" autocapitalize="off" autocomplete="off" rows="26">{resolvedCode}</textarea>
+        </label>
+      </div>
+      <aside class="cpp-output-panel" aria-label="C++ 运行面板">
+        <label>标准输入 stdin（运行前填写，读完后为 EOF）
+          <textarea class="cpp-stdin" spellcheck="false" rows="5">{stdin}</textarea>
+        </label>
+        <div class="cpp-actions">
+          <button type="button" data-action="run">运行</button>
+          <button type="button" data-action="stop" disabled>停止</button>
+          <button type="button" data-action="reset">重置</button>
+        </div>
+        <p class="cpp-status" role="status" aria-live="polite">尚未加载编译器。点击运行后开始下载。</p>
+        <div class="cpp-outputs">
+          <div><h3>编译 / 链接诊断</h3><pre class="cpp-diagnostics" tabindex="0">尚未运行</pre></div>
+          <div><h3>标准输出 stdout</h3><pre class="cpp-stdout" tabindex="0">尚未运行</pre></div>
+          <div><h3>标准错误 stderr</h3><pre class="cpp-stderr" tabindex="0">尚未运行</pre></div>
+          <div class="cpp-failure-panel" hidden><h3>工具链 / 浏览器运行失败</h3><pre class="cpp-failure" tabindex="0"></pre></div>
+        </div>
+      </aside>
     </div>
-    <span class="cpp-playground-badge">Static preview</span>
-  </div>
-  <div class="cpp-playground-grid">
-    <label>
-      <span>Source code</span>
-      <textarea class="cpp-playground-editor" rows="14" spellcheck="false" readonly>{code}</textarea>
-    </label>
-    <label>
-      <span>Standard input</span>
-      <textarea class="cpp-playground-input" rows="5" spellcheck="false" readonly>{stdin}</textarea>
-    </label>
-  </div>
-  <div class="cpp-playground-footer">
-    <button type="button" disabled>Run (runtime not installed)</button>
-    <p>This static preview keeps the source readable. A browser C++ runtime can be connected later without changing the MDX call.</p>
   </div>
 </section>
+
+<script>
+  import './client';
+</script>
+
+<style>
+  .cpp-playground { margin: 2rem 0; }
+  .cpp-view-controls { display: none; justify-content: flex-end; margin-bottom: .7rem; }
+  .cpp-enhanced .cpp-view-controls { display: flex; }
+  .cpp-source-name { margin: 0 0 .65rem; color: #666; font-size: .9rem; }
+  .cpp-interactive { display: block; }
+  .cpp-editor-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(18rem, .85fr); gap: 1rem; align-items: start; }
+  .cpp-editor-pane { min-width: 0; }
+  .cpp-output-panel { position: sticky; top: 1rem; display: grid; gap: .9rem; max-height: calc(100vh - 2rem); overflow: auto; padding: 1rem; border: 1px solid var(--line); border-radius: .45rem; background: #fff; }
+  [hidden] { display: none !important; }
+  label { display: grid; gap: .45rem; font-size: .95rem; font-weight: 600; }
+  textarea { width: 100%; resize: vertical; padding: .9rem; border: 1px solid #ccc; border-radius: .3rem; background: #fafafa; color: #262626; font: .9rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; tab-size: 4; }
+  .cpp-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+  button { padding: .5rem 1.1rem; border: 1px solid #ccc; border-radius: .3rem; background: white; color: #262626; font: inherit; cursor: pointer; }
+  button[data-action="run"] { border-color: var(--accent-dark); color: var(--accent-dark); }
+  button:disabled { opacity: .45; cursor: default; }
+  :is(button, textarea, pre):focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 3px; }
+  .cpp-status { margin: 0; color: #555; font-size: .9rem; }
+  .cpp-outputs h3 { margin: 1rem 0 .5rem; font-size: .95rem; }
+  pre { min-height: 3rem; max-height: 20rem; overflow: auto; margin: 0; padding: .9rem; border: 1px solid var(--line); background: #fafafa; white-space: pre-wrap; overflow-wrap: anywhere; font: .85rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+  @media (max-width: 800px) {
+    .cpp-editor-grid { grid-template-columns: 1fr; }
+    .cpp-output-panel { position: static; max-height: none; }
+  }
+</style>
