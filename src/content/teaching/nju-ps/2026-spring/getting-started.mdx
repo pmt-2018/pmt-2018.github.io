@@ -20,7 +20,7 @@ import helloVector from './hello-vector.cpp?raw';
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, course!\\n";
+    std::cout << "Hello, course!\n";
 }
 ```
 
@@ -32,7 +32,9 @@ int main() {
 <CppPlayground
   source={helloVector}
   sourceName="hello-vector.cpp"
-  stdin={'5\\n5 1 4 3 9\\n'}
+  stdin={`5
+5 1 4 3 9
+`}
 />
 
 源码通过 `?raw` 在构建时读入页面，因此不会依赖一个运行时文件服务器。

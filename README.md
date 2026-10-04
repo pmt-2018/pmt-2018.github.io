@@ -44,8 +44,11 @@ import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown �
   GNU C++17 编译与执行发生在经典 Web Worker 中，后续运行复用它。
 - 加载限时 90 秒，编译和运行合计限时 30 秒。停止和超时会终止 Worker，下次运行重新初始化。
   重置恢复源代码和 stdin；运行期间重置也会停止 Worker。
-- stdin 一次性提供，读完后为 EOF；输出缓冲到结束后显示。成功编译时的警告不由该 API 返回。
+- stdin 一次性提供，读完后为 EOF；在 MDX 中请使用模板字符串里的真实换行，避免把 `\\n` 写成字面量反斜杠和字母 n：
+  `stdin={\`5\n5 1 4 3 9\n\`}`。输出缓冲到结束后显示。成功编译时的警告不由该 API 返回。
 - 默认是 Shiki 高亮的阅读态；只有点击“编辑示例”后才显示普通 textarea。编辑器可以收起，回到高亮代码。
+- 编辑态在桌面使用源码 / 运行面板双栏布局；stdin、编译诊断、stdout 和 stderr 会持续显示在右侧。
+  屏幕较窄时自动改为上下排列。
 - 推荐把示例放在文章旁边的 `.cpp` 文件中，在 MDX 里用 `import example from './example.cpp?raw'` 引用，
   再传给 `source`。`code` 仍可用于很短的内联示例。
 - 无 JavaScript 时保留 Shiki 高亮代码；不支持 WebAssembly/Worker 或加载失败时仍可阅读、复制代码。
