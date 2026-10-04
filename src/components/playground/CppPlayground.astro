@@ -2,18 +2,27 @@
 import { Code } from 'astro:components';
 
 interface Props {
-  code: string;
+  /** Inline source, or source imported from a .cpp file with `?raw` in MDX. */
+  code?: string;
+  source?: string;
   stdin?: string;
+  sourceName?: string;
 }
-const { code, stdin = '' } = Astro.props;
+const { code, source, stdin = '', sourceName } = Astro.props;
+const resolvedCode = source ?? code;
+if (!resolvedCode) throw new Error('CppPlayground requires either a `source` or `code` prop.');
 ---
 
 <section class="cpp-playground" data-runtime-base={`${import.meta.env.BASE_URL}cpp-runtime/`}>
-  <div class="cpp-fallback"><Code code={code} lang="cpp" /></div>
+  <div class="cpp-view-controls">
+    <button type="button" data-action="edit" aria-expanded="false">编辑示例</button>
+  </div>
+  {sourceName && <p class="cpp-source-name">源码文件：<code>{sourceName}</code></p>}
+  <div class="cpp-fallback"><Code code={resolvedCode} lang="cpp" theme="github-light" /></div>
   <noscript><p>启用 JavaScript 后可修改并运行示例。也可以复制代码，在本地编译运行。</p></noscript>
   <div class="cpp-interactive" hidden>
     <label>源代码（GNU C++17）
-      <textarea class="cpp-source" spellcheck="false" autocapitalize="off" autocomplete="off" rows="17">{code}</textarea>
+      <textarea class="cpp-source" spellcheck="false" autocapitalize="off" autocomplete="off" rows="17">{resolvedCode}</textarea>
     </label>
     <label>标准输入 stdin（运行前填写，读完后为 EOF）
       <textarea class="cpp-stdin" spellcheck="false" rows="3">{stdin}</textarea>
@@ -39,6 +48,9 @@ const { code, stdin = '' } = Astro.props;
 
 <style>
   .cpp-playground { margin: 2rem 0; }
+  .cpp-view-controls { display: none; justify-content: flex-end; margin-bottom: .7rem; }
+  .cpp-enhanced .cpp-view-controls { display: flex; }
+  .cpp-source-name { margin: 0 0 .65rem; color: #666; font-size: .9rem; }
   .cpp-interactive { display: grid; gap: 1rem; }
   [hidden] { display: none !important; }
   label { display: grid; gap: .45rem; font-size: .95rem; font-weight: 600; }

@@ -31,7 +31,9 @@ npm run preview
 ```mdx
 import CppPlayground from '../../../components/playground/CppPlayground.astro';
 
-<CppPlayground code={'#include <iostream>\nint main() { std::cout << "Hello!"; }'} stdin="" />
+import example from './example.cpp?raw';
+
+<CppPlayground source={example} sourceName="example.cpp" stdin="" />
 ```
 
 import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown 围栏。
@@ -43,6 +45,9 @@ import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown �
 - 加载限时 90 秒，编译和运行合计限时 30 秒。停止和超时会终止 Worker，下次运行重新初始化。
   重置恢复源代码和 stdin；运行期间重置也会停止 Worker。
 - stdin 一次性提供，读完后为 EOF；输出缓冲到结束后显示。成功编译时的警告不由该 API 返回。
+- 默认是 Shiki 高亮的阅读态；只有点击“编辑示例”后才显示普通 textarea。编辑器可以收起，回到高亮代码。
+- 推荐把示例放在文章旁边的 `.cpp` 文件中，在 MDX 里用 `import example from './example.cpp?raw'` 引用，
+  再传给 `source`。`code` 仍可用于很短的内联示例。
 - 无 JavaScript 时保留 Shiki 高亮代码；不支持 WebAssembly/Worker 或加载失败时仍可阅读、复制代码。
 - 此工具链不支持 C++ 异常。浏览器 WASM/WASI 与本地 Linux/GCC 并不等价。
   编译器可能占用数百 MB 内存，本试验没有硬性内存或输出配额，适合小型教学示例。

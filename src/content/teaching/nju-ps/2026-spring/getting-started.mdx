@@ -1,0 +1,46 @@
+---
+title: "开始使用这门课程"
+description: "示例内容，用于验证 Markdown、数学公式、外部 C++ 源码引用和浏览器运行。"
+course: "nju-problem-solving"
+semester: "2026-spring"
+week: 1
+category: "lecture"
+tags: [cpp, setup]
+published: true
+---
+
+import CppPlayground from '../../../../components/playground/CppPlayground.astro';
+import helloVector from './hello-vector.cpp?raw';
+
+这是一篇占位课程材料。数学公式示例：$a^2+b^2=c^2$。
+
+普通代码仍然可以使用 Markdown 围栏：
+
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, course!\\n";
+}
+```
+
+## 一个可以运行的例子
+
+下面的组件引用同一目录下的 `hello-vector.cpp`。修改代码或输入后点击运行，
+编译会在浏览器的 Web Worker 中完成。
+
+<CppPlayground
+  source={helloVector}
+  sourceName="hello-vector.cpp"
+  stdin={'5\\n5 1 4 3 9\\n'}
+/>
+
+源码通过 `?raw` 在构建时读入页面，因此不会依赖一个运行时文件服务器。
+文章在没有 JavaScript、WebAssembly 不可用或工具链加载失败时，仍然保留可阅读的代码。
+
+平时仍要练习真实的本地流程：
+
+```bash
+g++ hello-vector.cpp -o hello-vector
+./hello-vector
+```

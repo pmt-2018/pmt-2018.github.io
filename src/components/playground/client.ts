@@ -4,6 +4,9 @@ for (const root of document.querySelectorAll<HTMLElement>('.cpp-playground')) {
   const get = <T extends HTMLElement>(selector: string) => root.querySelector<T>(selector)!;
   const source = get<HTMLTextAreaElement>('.cpp-source');
   const stdin = get<HTMLTextAreaElement>('.cpp-stdin');
+  const fallback = get('.cpp-fallback');
+  const interactive = get('.cpp-interactive');
+  const edit = get<HTMLButtonElement>('[data-action="edit"]');
   const run = get<HTMLButtonElement>('[data-action="run"]');
   const stop = get<HTMLButtonElement>('[data-action="stop"]');
   const status = get('.cpp-status');
@@ -16,6 +19,15 @@ for (const root of document.querySelectorAll<HTMLElement>('.cpp-playground')) {
   let worker: Worker | undefined;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let busy = false;
+  let editorOpen = false;
+
+  const setEditorOpen = (open: boolean) => {
+    editorOpen = open;
+    fallback.hidden = open;
+    interactive.hidden = !open;
+    edit.textContent = open ? '收起编辑器' : '编辑示例';
+    edit.setAttribute('aria-expanded', String(open));
+  };
 
   const setBusy = (value: boolean) => {
     busy = value;
@@ -87,6 +99,11 @@ for (const root of document.querySelectorAll<HTMLElement>('.cpp-playground')) {
     }
   });
 
+  edit.addEventListener('click', () => {
+    if (busy) return;
+    setEditorOpen(!editorOpen);
+  });
+
   stop.addEventListener('click', () => {
     terminate();
     diagnostics.textContent = stdout.textContent = stderr.textContent = '（已停止，未返回结果）';
@@ -105,6 +122,6 @@ for (const root of document.querySelectorAll<HTMLElement>('.cpp-playground')) {
     status.textContent = '当前浏览器不支持 Worker 或 WebAssembly，请使用本地编译器。';
     run.disabled = true;
   }
-  get('.cpp-fallback').hidden = true;
-  get('.cpp-interactive').hidden = false;
+  root.classList.add('cpp-enhanced');
+  setEditorOpen(false);
 }
