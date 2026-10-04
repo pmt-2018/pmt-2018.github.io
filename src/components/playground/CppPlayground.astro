@@ -1,0 +1,33 @@
+---
+interface Props {
+  code: string;
+  stdin?: string;
+  title?: string;
+}
+
+const { code, stdin = '', title = 'C++ playground' } = Astro.props;
+---
+
+<section class="cpp-playground" aria-label={title}>
+  <div class="cpp-playground-header">
+    <div>
+      <p class="cpp-playground-kicker">Try an example</p>
+      <h3>{title}</h3>
+    </div>
+    <span class="cpp-playground-badge">Static preview</span>
+  </div>
+  <div class="cpp-playground-grid">
+    <label>
+      <span>Source code</span>
+      <textarea class="cpp-playground-editor" rows="14" spellcheck="false" readonly>{code}</textarea>
+    </label>
+    <label>
+      <span>Standard input</span>
+      <textarea class="cpp-playground-input" rows="5" spellcheck="false" readonly>{stdin}</textarea>
+    </label>
+  </div>
+  <div class="cpp-playground-footer">
+    <button type="button" disabled>Run (runtime not installed)</button>
+    <p>This static preview keeps the source readable. A browser C++ runtime can be connected later without changing the MDX call.</p>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+import type { SidebarItem } from '../../lib/navigation';
+
+interface Props {
+  items: SidebarItem[];
+  pathname: string;
+}
+
+const { items, pathname } = Astro.props;
+const isCurrent = (item: SidebarItem) => item.href === pathname;
+const hasCurrent = (item: SidebarItem): boolean =>
+  Boolean((item.href && (pathname === item.href || pathname.startsWith(item.href))) || item.children?.some(hasCurrent));
+---
+<aside class="section-sidebar" aria-label="文档导航">
+  <div class="sidebar-label">In this section</div>
+  <nav>
+    <ul class="sidebar-list">
+      {items.map((item) => (
+        <li>
+          {item.children?.length ? (
+            <details open={hasCurrent(item)}>
+              <summary>
+                {item.href ? <a href={item.href} class:list={{ 'is-current': isCurrent(item) }}>{item.label}</a> : <span>{item.label}</span>}
+              </summary>
+              <ul>
+                {item.children.map((child) => (
+                  <li>
+                    {child.children?.length ? (
+                      <details open={hasCurrent(child)}>
+                        <summary>
+                          {child.href ? <a href={child.href} class:list={{ 'is-current': isCurrent(child) }}>{child.label}</a> : <span>{child.label}</span>}
+                        </summary>
+                        <ul>
+                          {child.children.map((leaf) => (
+                            <li><a href={leaf.href} class:list={{ 'is-current': isCurrent(leaf) }}>{leaf.label}</a></li>
+                          ))}
+                        </ul>
+                      </details>
+                    ) : (
+                      <a href={child.href} class:list={{ 'is-current': isCurrent(child) }}>{child.label}</a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ) : (
+            <a href={item.href} class:list={{ 'is-current': isCurrent(item) }}>{item.label}</a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>

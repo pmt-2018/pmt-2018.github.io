@@ -1,20 +1,33 @@
 ---
 import '../styles/global.css';
 import 'katex/dist/katex.min.css';
+import { getCollection } from 'astro:content';
+import SectionSidebar from '../components/navigation/SectionSidebar.astro';
+import TableOfContents from '../components/navigation/TableOfContents.astro';
+import { buildSidebar } from '../lib/navigation';
+import { isPublished } from '../lib/content';
 
 interface Props {
   title?: string;
   description?: string;
+  headings?: { depth: number; slug: string; text: string }[];
 }
 
-const { title = 'pmt2018', description = '个人学术主页与学习资料库' } = Astro.props;
+const { title = 'pmt2018', description = '个人学术主页与学习资料库', headings = [] } = Astro.props;
 const pathname = Astro.url.pathname;
 const navigation = [
+  { href: '/', label: 'Home' },
   { href: '/about/', label: 'About' },
   { href: '/teaching/', label: 'Teaching' },
   { href: '/algorithms/', label: 'Algorithms' },
   { href: '/cv/', label: 'CV' },
 ];
+const [teachingEntries, algorithmEntries, noteEntries] = await Promise.all([
+  getCollection('teaching', (entry) => isPublished(entry)),
+  getCollection('algorithms', (entry) => isPublished(entry)),
+  getCollection('notes', (entry) => isPublished(entry)),
+]);
+const sidebarItems = buildSidebar(pathname, teachingEntries, algorithmEntries, noteEntries);
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -29,7 +42,17 @@ const navigation = [
     <div class="site-shell">
       <header class="site-header">
         <a class="site-title" href="/">pmt2018</a>
-        <nav aria-label="主导航">
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="主导航">
+            {navigation.map((item) => (
+              <a class:list={[{ active: item.href !== '/' && pathname.startsWith(item.href) }, { active: item.href === '/' && pathname === '/' }]} href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </details>
+        <nav class="desktop-menu" aria-label="主导航">
           {navigation.map((item) => (
             <a class:list={[{ active: item.href !== '/' && pathname.startsWith(item.href) }, { active: item.href === '/' && pathname === '/' }]} href={item.href}>
               {item.label}
@@ -37,11 +60,39 @@ const navigation = [
           ))}
         </nav>
       </header>
-      <main><slot /></main>
+      <main class:list={{ 'has-docs-layout': sidebarItems.length > 0 }}>
+        {sidebarItems.length > 0 ? (
+          <div class="docs-layout">
+            <SectionSidebar items={sidebarItems} pathname={pathname} />
+            <details class="mobile-sidebar">
+              <summary>Browse documents</summary>
+              <SectionSidebar items={sidebarItems} pathname={pathname} />
+            </details>
+            <div class="docs-main"><slot /></div>
+            <TableOfContents headings={headings} />
+          </div>
+        ) : <slot />}
+      </main>
       <footer class="site-footer">
         <span>内容优先，静态生成。</span>
         <a href="https://github.com/pmt-2018/pmt-2018.github.io">源代码</a>
       </footer>
     </div>
+    <script>
+      const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>('.table-of-contents a')];
+      const headings = tocLinks
+        .map((link) => document.getElementById(link.getAttribute('href')?.slice(1) || ''))
+        .filter((heading): heading is HTMLElement => Boolean(heading));
+      if (tocLinks.length && headings.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              tocLinks.forEach((link) => link.classList.toggle('is-current', link.hash === `#${entry.target.id}`));
+            }
+          });
+        }, { rootMargin: '-15% 0px -70% 0px' });
+        headings.forEach((heading) => observer.observe(heading));
+      }
+    </script>
   </body>
 </html>

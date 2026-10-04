@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" role="img" aria-labelledby="title desc">
+  <title id="title">Markdown test image</title>
+  <desc id="desc">A purple circle and a document outline used to test image rendering.</desc>
+  <rect width="640" height="240" rx="24" fill="#f3efff"/>
+  <circle cx="120" cy="120" r="64" fill="#8b5cf6"/>
+  <path d="M92 92h56v56H92zM104 104h12v32h-12zm20 0h12v32h-12z" fill="#fff"/>
+  <rect x="230" y="72" width="300" height="18" rx="9" fill="#8b5cf6" opacity=".85"/>
+  <rect x="230" y="111" width="250" height="14" rx="7" fill="#a78bfa"/>
+  <rect x="230" y="145" width="180" height="14" rx="7" fill="#c4b5fd"/>
+</svg>

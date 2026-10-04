@@ -1,0 +1,222 @@
+---
+title: "Markdown / MDX 全元素测试页"
+description: "用于检查 Markdown、MDX、KaTeX、代码高亮和 C++ playground 的渲染效果。"
+category: "tools"
+tags: [markdown, mdx, katex, cpp]
+published: true
+---
+
+import CppPlayground from '../../components/playground/CppPlayground.astro';
+
+# Markdown / MDX 全元素测试页
+
+这是一篇用于检查显示效果的测试文档。它同时覆盖普通 Markdown、GitHub Flavored Markdown（GFM）、MDX 组件、C++ 代码高亮和数学公式。
+
+## 1. 标题、段落和行内格式
+
+这是普通段落。可以使用 **粗体**、*斜体*、***粗斜体***、~~删除线~~、`行内代码` 和 <mark>高亮文本</mark>。
+
+也可以使用下标 H<sub>2</sub>O、上标 x<sup>2</sup>、键盘按键 <kbd>Ctrl</kbd> + <kbd>C</kbd>，以及缩写 <abbr title="HyperText Markup Language">HTML</abbr>。
+
+换行测试：第一行末尾有两个空格。  
+这是同一段中的第二行。
+
+## 2. 链接、图片和自动链接
+
+- [站点首页](/)
+- [Astro 官网](https://astro.build/ "Astro")
+- <https://example.com>
+- <test@example.com>
+
+下面是一张本地 SVG 图片：
+
+![一个紫色圆形的 Markdown 测试图标](/images/markdown-test.svg "Markdown test image")
+
+## 3. 列表
+
+无序列表：
+
+- 第一项
+- 第二项
+  - 嵌套项目 A
+  - 嵌套项目 B
+- 第三项
+
+有序列表：
+
+1. 写源代码
+2. 编译程序
+3. 阅读诊断信息
+4. 运行并测试
+
+任务列表：
+
+- [x] 检查 Markdown
+- [x] 检查数学公式
+- [ ] 接入浏览器 C++ 编译器
+
+## 4. 引用、分隔线和定义
+
+> 学习编程不仅是记住语法，还要学会观察输入、输出和错误信息。
+>
+> —— 测试引用
+
+---
+
+术语
+: 这是一个定义列表风格的测试。标准 Markdown 渲染器可能会把它显示为普通段落。
+
+## 5. 表格
+
+| 元素 | 语法 | 用途 |
+| :--- | :--- | :--- |
+| 粗体 | `**text**` | 强调关键词 |
+| 行内代码 | `` `code` `` | 表示变量或命令 |
+| 数学公式 | `$a+b$` | 表示数学表达式 |
+| 代码块 | `````cpp | 展示完整程序 |
+
+## 6. 代码
+
+行内命令：运行 `g++ main.cpp -std=c++20 -o main`，然后执行 `./main`。
+
+```cpp title="main.cpp"
+#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::cout << n * (n + 1) / 2 << '\\n';
+}
+```
+
+```text
+输入：5
+输出：15
+```
+
+```bash
+g++ main.cpp -std=c++20 -Wall -Wextra -o main
+./main
+```
+
+```javascript
+const answer = numbers.reduce((sum, value) => sum + value, 0);
+console.log(answer);
+```
+
+```diff
+- std::cout << n << '\\n';
++ std::cout << n * (n + 1) / 2 << '\\n';
+```
+
+代码中的 HTML 特殊字符也应保持可见：`<vector>`, `&&`, `a < b`。
+
+## 7. C++ playground 元素
+
+下面测试 MDX 组件是否可以和普通 Markdown 正文、代码块以及公式一起使用。当前组件是静态预览，保留了以后接入 WebAssembly 编译器所需的 `code` 和 `stdin` 接口。
+
+<CppPlayground
+  title="计算前 n 个整数的和"
+  code={`#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::cout << n * (n + 1) / 2 << '\\n';
+}
+`}
+  stdin={`5`}
+/>
+
+## 8. 行内数学公式
+
+这是行内公式：$a^2 + b^2 = c^2$。变量可以写成 $x_i$，极限可以写成 $\lim_{n \to \infty} a_n$，集合可以写成 $A \subseteq B$。
+
+更多行内例子：$\sqrt{x}$、$\frac{a}{b}$、$\sum_{i=1}^{n} i$、$\int_0^1 x^2\,dx$、$\alpha + \beta = \gamma$。
+
+## 9. 块级数学公式
+
+### 9.1 基本运算和对齐
+
+$$
+1 + 2 + \cdots + n = \frac{n(n+1)}{2}
+$$
+
+$$
+\begin{aligned}
+f(x) &= x^2 + 2x + 1 \\
+     &= (x+1)^2
+\end{aligned}
+$$
+
+### 9.2 矩阵、向量和行列式
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix},
+\qquad
+\det(\mathbf{A}) = 1 \cdot 4 - 2 \cdot 3 = -2
+$$
+
+$$
+\vec v = \begin{pmatrix} x \\ y \\ z \end{pmatrix},
+\qquad
+\|\vec v\|_2 = \sqrt{x^2+y^2+z^2}
+$$
+
+### 9.3 分段函数、集合和逻辑
+
+$$
+|x| =
+\begin{cases}
+x, & x \ge 0, \\
+-x, & x < 0.
+\end{cases}
+$$
+
+$$
+\forall x \in A,\; x \in B \Longrightarrow A \subseteq B,
+\qquad
+\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)
+$$
+
+### 9.4 算法复杂度
+
+$$
+T(n) = 2T\left(\frac{n}{2}\right) + O(n)
+\quad\Longrightarrow\quad
+T(n) = O(n\log n)
+$$
+
+$$
+\sum_{v \in V} \deg(v) = 2|E|
+$$
+
+## 10. HTML 和 MDX 内联元素
+
+<details>
+  <summary>点击展开 HTML details</summary>
+
+这是一个原生 HTML `<details>` 元素。它适合放置提示、答案或补充说明。
+</details>
+
+<div class="test-callout">
+  <strong>自定义提示框：</strong> 这是用 HTML class 测试自定义样式的区域。
+</div>
+
+MDX 表达式测试：当前年份是 {new Date().getFullYear()}。
+
+## 11. 脚注和转义
+
+Markdown 使用简单、可读的纯文本格式。[^markdown]
+
+需要显示字面量时可以转义：\\*不是斜体\\*，\\# 不是标题，\\[不是链接\\]。
+
+[^markdown]: 这是一个脚注。构建后应当可以点击脚注编号跳转，并能返回正文。
+
+## 12. 小结
+
+如果本页所有元素都显示正常，就说明当前站点已经覆盖了常用的 Markdown、MDX、GFM、KaTeX、Shiki 和 C++ playground 接口。
