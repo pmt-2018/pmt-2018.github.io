@@ -55,7 +55,7 @@ MDX 将尖括号解释为 JSX，因此自动链接写成普通链接；字面量
 
 - [x] 检查 Markdown
 - [x] 检查数学公式
-- [ ] 接入浏览器 C++ 编译器
+- [x] 接入浏览器 C++ 编译器
 
 ## 4. 引用、分隔线和定义
 
@@ -115,7 +115,7 @@ console.log(answer);
 
 ## 7. C++ playground 元素
 
-下面测试 MDX 组件是否可以和普通 Markdown 正文、代码块以及公式一起使用。当前组件是静态预览，保留了以后接入 WebAssembly 编译器所需的 `code` 和 `stdin` 接口。
+下面测试 MDX 组件是否可以和普通 Markdown 正文、代码块以及公式一起使用。点击“编辑示例”后可以修改代码；点击“运行”会在浏览器的 Web Worker 中编译执行。
 
 <CppPlayground
   title="计算前 n 个整数的和"
