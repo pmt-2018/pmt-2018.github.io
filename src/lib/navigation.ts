@@ -20,7 +20,7 @@ export function buildSidebar(
     const semester = '/teaching/nju-ps/2026-fall/';
     const lectures = teachingEntries
       .filter((entry) => entry.slug.startsWith('nju-ps/2026-fall/lectures/'))
-      .sort((a, b) => (a.data.week ?? 999) - (b.data.week ?? 999))
+      .sort((a, b) => (a.data.week ?? 999) - (b.data.week ?? 999) || a.slug.localeCompare(b.slug))
       .map((entry) => link(entry.data.title, `/teaching/${entry.slug}/`));
 
     return [
