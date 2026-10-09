@@ -46,9 +46,15 @@ import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown �
   重置恢复源代码和 stdin；运行期间重置也会停止 Worker。
 - stdin 一次性提供，读完后为 EOF；在 MDX 中请使用模板字符串里的真实换行，避免把 `\\n` 写成字面量反斜杠和字母 n：
   `stdin={\`5\n5 1 4 3 9\n\`}`。输出缓冲到结束后显示。成功编译时的警告不由该 API 返回。
-- 默认是 Shiki 高亮的阅读态；只有点击“编辑示例”后才显示普通 textarea。编辑器可以收起，回到高亮代码。
-- 编辑态在桌面使用源码 / 运行面板双栏布局；stdin、编译诊断、stdout 和 stderr 会持续显示在右侧。
-  屏幕较窄时自动改为上下排列。
+- 默认是 Shiki 高亮的阅读态，可直接运行原始示例；点击“编辑”后按需加载 CodeMirror 6 和 C++ 语言支持。
+  编辑器提供行号、语法高亮、四空格缩进、括号匹配/自动闭合、撤销重做和查找。
+  Tab 缩进，Shift+Tab 取消缩进，Esc 后按 Tab 离开编辑器，Ctrl/Cmd+F 查找。
+  返回阅读态时保留修改后的代码；重置会恢复源代码、stdin 并清空编辑器撤销历史。
+  编辑器加载失败时保留普通文本框，不影响运行。
+- 代码位于面板上方，下方是 stdin 和结果；窄屏自动上下排列。
+  编译失败时展开诊断，stderr 仅在有内容时显示，运行环境错误单独展示。
+  首次加载显示进度，运行详情收纳耗时等信息。
+- 编辑器依赖由构建打包为站点静态资源，不依赖运行时 CDN。编辑器与编译器分别按需加载。
 - 推荐把示例放在文章旁边的 `.cpp` 文件中，在 MDX 里用 `import example from './example.cpp?raw'` 引用，
   再传给 `source`。`code` 仍可用于很短的内联示例。
 - 无 JavaScript 时保留 Shiki 高亮代码；不支持 WebAssembly/Worker 或加载失败时仍可阅读、复制代码。
@@ -67,8 +73,14 @@ import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown �
 ## 内容目录
 
 - `src/content/teaching/`：按课程和学期组织的教学材料
-- `src/content/algorithms/`：按主题组织的算法笔记
-- `src/content/notes/`：其他长期笔记
+- `src/content/notes/`：统一的长期笔记，包含算法、编程、工具与其他参考资料；首页和侧栏按 `category` 分组
+
+算法内容已合并到笔记，例如 `src/content/notes/graph/example.md` 对应 `/notes/graph/example/`。
+旧的 `/algorithms/` 和已迁移文章地址通过 `astro.config.mjs` 的静态跳转保留兼容。
+以后统一在 `notes` 集合中新增内容；不需要再维护独立的算法栏目。
+
+导航、内容入口和 playground 操作按钮使用 `src/components/Icon.astro` 中的 Lucide 线条图标。
+图标在构建时生成静态 SVG，沿用文字颜色，保留文字标签并对辅助技术隐藏装饰图标。
 
 普通文章使用 Markdown；需要嵌入组件时再使用 MDX。文章的 frontmatter 由 `src/content.config.ts` 校验。
 

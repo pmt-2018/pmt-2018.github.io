@@ -14,7 +14,7 @@ const visibleHeadings = headings.filter((heading) => heading.depth >= 2 && headi
 ---
 {visibleHeadings.length > 0 && (
   <aside class="table-of-contents" aria-label="本文目录">
-    <div class="toc-label">On this page</div>
+    <div class="toc-label">本文目录</div>
     <nav>
       <ul>
         {visibleHeadings.map((heading) => (

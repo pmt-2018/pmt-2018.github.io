@@ -12,7 +12,7 @@ const hasCurrent = (item: SidebarItem): boolean =>
   Boolean((item.href && (pathname === item.href || pathname.startsWith(item.href))) || item.children?.some(hasCurrent));
 ---
 <aside class="section-sidebar" aria-label="文档导航">
-  <div class="sidebar-label">In this section</div>
+  <div class="sidebar-label">本栏目</div>
   <nav>
     <ul class="sidebar-list">
       {items.map((item) => (

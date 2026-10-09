@@ -13,7 +13,6 @@ const contentSchema = z.object({
 });
 
 const teaching = defineCollection({ schema: contentSchema });
-const algorithms = defineCollection({ schema: contentSchema });
 const notes = defineCollection({ schema: contentSchema });
 
-export const collections = { teaching, algorithms, notes };
+export const collections = { teaching, notes };

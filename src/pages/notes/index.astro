@@ -2,16 +2,23 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { isPublished } from '../../lib/content';
+import { groupNotes } from '../../lib/notes';
 const entries = await getCollection('notes', (entry) => isPublished(entry));
+const groups = groupNotes(entries);
 ---
 <BaseLayout title="笔记">
   <div class="page wide">
     <p class="eyebrow">Notes</p><h1>笔记</h1>
-    <p class="lead">课程、工具和其他长期积累的参考资料。</p>
-    <ul class="link-list">
-      {entries.map((entry) => (
-        <li><a href={`/notes/${entry.slug}/`}><strong>{entry.data.title}</strong><span>{entry.data.description}</span></a></li>
-      ))}
-    </ul>
+    <p class="lead">按主题整理算法、编程、工具和其他值得长期查阅的学习记录。</p>
+    {groups.map((group) => (
+      <section class="note-group" aria-labelledby={`category-${group.category}`}>
+        <h2 id={`category-${group.category}`}>{group.label}</h2>
+        <ul class="link-list">
+          {group.entries.map((entry) => (
+            <li><a href={`/notes/${entry.slug}/`}><strong>{entry.data.title}</strong>{entry.data.description && <span>{entry.data.description}</span>}</a></li>
+          ))}
+        </ul>
+      </section>
+    ))}
   </div>
 </BaseLayout>

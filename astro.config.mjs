@@ -4,6 +4,10 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://pmt-2018.github.io',
   integrations: [mdx()],
+  redirects: {
+    '/algorithms/': '/notes/',
+    '/algorithms/graph/example/': '/notes/graph/example/',
+  },
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [[rehypeKatex, { output: 'html' }]],

@@ -96,15 +96,20 @@ Target top-level structure:
 │       │   ├── OJ Solutions
 │       │   └── FAQ
 │       └── Archive
-├── Algorithms
-│   ├── Data Structures
-│   ├── Graph
-│   ├── DP
-│   └── Others
 └── Notes
+    ├── Data Structures
+    ├── Graph
+    ├── DP
+    ├── Tools / Writing
+    └── Others
 ```
 
 Do not add a top-level `Blog` unless requirements change. Content is primarily organized semantically, not as a chronological feed.
+
+Algorithms and general notes are merged into one Notes section, using the `notes`
+content collection and topic categories. Do not restore a separate Algorithms
+navigation item or collection unless explicitly requested. Existing algorithm URLs
+are retained as static redirects to the corresponding Notes pages.
 
 ---
 
@@ -236,9 +241,9 @@ Remember that Git history is public if the repository is public. Do not commit m
 
 ---
 
-## 8. Algorithms Section
+## 8. Algorithm Notes
 
-The Algorithms section is a longer-lived knowledge archive than semester teaching material.
+Algorithm notes belong to the unified Notes section, a longer-lived knowledge archive than semester teaching material.
 
 Algorithm/problem-solution articles should favor the following structure where appropriate:
 
@@ -284,8 +289,8 @@ personal-site/
         ├── teaching/
         │   └── nju-ps/
         │       └── <semester>/
-        ├── algorithms/
         └── notes/
+            └── <topic>/
 ```
 
 This is a direction, not an immutable directory contract. Agents may improve the exact Astro structure when implementation requires it, but should preserve the conceptual separation.
@@ -297,7 +302,7 @@ Typical URLs should resemble:
 ```text
 /teaching/nju-ps/2026-spring/
 /teaching/nju-ps/2026-spring/oj/...
-/algorithms/graph/...
+/notes/graph/...
 ```
 
 ---
@@ -315,7 +320,7 @@ Must work first:
 - GitHub Pages deployment.
 - Global layout/navigation.
 - Responsive and readable typography.
-- Basic Home / Teaching / Algorithms / About structure.
+- Basic Home / Teaching / Notes / About structure.
 
 ### P1 — Content system
 
@@ -509,11 +514,14 @@ Important examples should still exist as readable source code.
 
 ### Editor scope
 
-For the first implementation, prefer a simple editor, potentially even a styled `<textarea>`.
+The current playground uses CodeMirror 6 behind the site-owned `CppEditor.ts` adapter.
+It loads on the first Edit interaction; ordinary reading keeps static Shiki highlighting,
+and the compiler still loads only on Run. A plain `<textarea>` remains the fallback if
+the editor cannot load. Keep editor features limited to introductory code editing.
 
 Do not introduce Monaco merely because this feature involves code.
 
-If better editing becomes valuable later, CodeMirror 6 is a reasonable class of solution to evaluate.
+Use the adapter to keep MDX content and the compiler independent of CodeMirror.
 
 Features that are explicitly **out of scope for the initial playground**:
 

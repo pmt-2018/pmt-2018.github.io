@@ -1,0 +1,27 @@
+---
+import { BookOpen, CodeXml, ExternalLink, FileText, House, Menu, NotebookText, Pencil, Play, RotateCcw, Square, UserRound } from '@lucide/astro';
+
+const icons = {
+  home: House,
+  teaching: BookOpen,
+  notes: NotebookText,
+  about: UserRound,
+  menu: Menu,
+  file: FileText,
+  source: CodeXml,
+  external: ExternalLink,
+  edit: Pencil,
+  run: Play,
+  reset: RotateCcw,
+  stop: Square,
+};
+interface Props {
+  name: keyof typeof icons;
+}
+const Glyph = icons[Astro.props.name];
+---
+<Glyph class="site-icon" size={16} stroke-width={1.8} aria-hidden="true" focusable="false" />
+
+<style>
+  .site-icon { display: inline-block; width: 1em; height: 1em; flex: 0 0 auto; vertical-align: -.15em; }
+</style>

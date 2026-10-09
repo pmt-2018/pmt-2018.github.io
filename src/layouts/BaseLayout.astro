@@ -6,6 +6,7 @@ import SectionSidebar from '../components/navigation/SectionSidebar.astro';
 import TableOfContents from '../components/navigation/TableOfContents.astro';
 import { buildSidebar } from '../lib/navigation';
 import { isPublished } from '../lib/content';
+import Icon from '../components/Icon.astro';
 
 interface Props {
   title?: string;
@@ -16,18 +17,17 @@ interface Props {
 const { title = 'pmt2018', description = '个人学术主页与学习资料库', headings = [] } = Astro.props;
 const pathname = Astro.url.pathname;
 const navigation = [
-  { href: '/', label: 'Home' },
-  { href: '/about/', label: 'About' },
-  { href: '/teaching/', label: 'Teaching' },
-  { href: '/algorithms/', label: 'Algorithms' },
-  { href: '/cv/', label: 'CV' },
-];
-const [teachingEntries, algorithmEntries, noteEntries] = await Promise.all([
+  { href: '/', label: '首页', icon: 'home' },
+  { href: '/teaching/', label: '教学', icon: 'teaching' },
+  { href: '/notes/', label: '笔记', icon: 'notes' },
+  { href: '/about/', label: '关于', icon: 'about' },
+] as const;
+const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+const [teachingEntries, noteEntries] = await Promise.all([
   getCollection('teaching', (entry) => isPublished(entry)),
-  getCollection('algorithms', (entry) => isPublished(entry)),
   getCollection('notes', (entry) => isPublished(entry)),
 ]);
-const sidebarItems = buildSidebar(pathname, teachingEntries, algorithmEntries, noteEntries);
+const sidebarItems = buildSidebar(pathname, teachingEntries, noteEntries);
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -39,33 +39,34 @@ const sidebarItems = buildSidebar(pathname, teachingEntries, algorithmEntries, n
     <title>{title} · pmt2018</title>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">跳至正文</a>
     <div class="site-shell">
       <header class="site-header">
         <a class="site-title" href="/">pmt2018</a>
         <details class="mobile-menu">
-          <summary>Menu</summary>
+          <summary><span class="icon-label"><Icon name="menu" />菜单</span></summary>
           <nav aria-label="主导航">
             {navigation.map((item) => (
-              <a class:list={[{ active: item.href !== '/' && pathname.startsWith(item.href) }, { active: item.href === '/' && pathname === '/' }]} href={item.href}>
-                {item.label}
+              <a class:list={{ active: isActive(item.href) }} aria-current={isActive(item.href) ? 'page' : undefined} href={item.href}>
+                <span class="icon-label"><Icon name={item.icon} />{item.label}</span>
               </a>
             ))}
           </nav>
         </details>
         <nav class="desktop-menu" aria-label="主导航">
           {navigation.map((item) => (
-            <a class:list={[{ active: item.href !== '/' && pathname.startsWith(item.href) }, { active: item.href === '/' && pathname === '/' }]} href={item.href}>
-              {item.label}
+            <a class:list={{ active: isActive(item.href) }} aria-current={isActive(item.href) ? 'page' : undefined} href={item.href}>
+              <span class="icon-label"><Icon name={item.icon} />{item.label}</span>
             </a>
           ))}
         </nav>
       </header>
-      <main class:list={{ 'has-docs-layout': sidebarItems.length > 0 }}>
+      <main id="main-content" tabindex="-1" class:list={{ 'has-docs-layout': sidebarItems.length > 0 }}>
         {sidebarItems.length > 0 ? (
           <div class="docs-layout">
             <SectionSidebar items={sidebarItems} pathname={pathname} />
             <details class="mobile-sidebar">
-              <summary>Browse documents</summary>
+              <summary>浏览本栏目</summary>
               <SectionSidebar items={sidebarItems} pathname={pathname} />
             </details>
             <div class="docs-main"><slot /></div>
@@ -74,8 +75,11 @@ const sidebarItems = buildSidebar(pathname, teachingEntries, algorithmEntries, n
         ) : <slot />}
       </main>
       <footer class="site-footer">
-        <span>内容优先，静态生成。</span>
-        <a href="https://github.com/pmt-2018/pmt-2018.github.io">源代码</a>
+        <span>pmt2018 · 教学材料与学习笔记</span>
+        <nav class="footer-links" aria-label="补充链接">
+          <a href="/cv/" aria-current={pathname === '/cv/' ? 'page' : undefined}><span class="icon-label"><Icon name="file" />简历（待补充）</span></a>
+          <a href="https://github.com/pmt-2018/pmt-2018.github.io"><span class="icon-label"><Icon name="source" />网站源码<Icon name="external" /></span></a>
+        </nav>
       </footer>
     </div>
     <script>

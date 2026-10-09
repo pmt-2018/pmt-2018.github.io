@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { groupNotes } from './notes';
 
 export interface SidebarItem {
   label: string;
@@ -6,14 +7,13 @@ export interface SidebarItem {
   children?: SidebarItem[];
 }
 
-type Entry = CollectionEntry<'teaching'> | CollectionEntry<'algorithms'> | CollectionEntry<'notes'>;
+type Entry = CollectionEntry<'teaching'> | CollectionEntry<'notes'>;
 
 const link = (label: string, href: string): SidebarItem => ({ label, href });
 
 export function buildSidebar(
   pathname: string,
   teachingEntries: CollectionEntry<'teaching'>[],
-  algorithmEntries: CollectionEntry<'algorithms'>[],
   noteEntries: CollectionEntry<'notes'>[],
 ): SidebarItem[] {
   if (pathname.startsWith('/teaching')) {
@@ -29,43 +29,30 @@ export function buildSidebar(
         href: '/teaching/',
         children: [
           {
-            label: '2026 Spring',
+            label: '2026 春',
             href: semester,
             children: [
-              link('Overview', semester),
-              link('Schedule', `${semester}schedule/`),
-              ...(lectures.length ? [{ label: 'Lectures', children: lectures }] : []),
-              link('OJ Solutions', `${semester}oj/`),
-              link('FAQ & Debugging', `${semester}faq/`),
+              link('课程概览', semester),
+              link('课程安排', `${semester}schedule/`),
+              ...(lectures.length ? [{ label: '讲义', children: lectures }] : []),
+              link('OJ 题解', `${semester}oj/`),
+              link('常见问题与调试', `${semester}faq/`),
             ],
           },
-          link('Archive', '/teaching/'),
         ],
       },
     ];
   }
 
-  if (pathname.startsWith('/algorithms')) {
-    const byCategory = new Map<string, SidebarItem[]>();
-    for (const entry of algorithmEntries) {
-      const category = entry.data.category || 'Others';
-      const items = byCategory.get(category) ?? [];
-      items.push(link(entry.data.title, `/algorithms/${entry.slug}/`));
-      byCategory.set(category, items);
-    }
-    return [...byCategory.entries()]
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([category, children]) => ({ label: category, children }));
-  }
-
   if (pathname.startsWith('/notes')) {
     return [
       {
-        label: 'Notes',
+        label: '笔记',
         href: '/notes/',
-        children: noteEntries
-          .sort((a, b) => a.data.title.localeCompare(b.data.title))
-          .map((entry) => link(entry.data.title, `/notes/${entry.slug}/`)),
+        children: groupNotes(noteEntries).map((group) => ({
+          label: group.label,
+          children: group.entries.map((entry) => link(entry.data.title, `/notes/${entry.slug}/`)),
+        })),
       },
     ];
   }
