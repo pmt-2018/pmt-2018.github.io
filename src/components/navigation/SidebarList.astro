@@ -1,0 +1,30 @@
+---
+import type { SidebarItem } from '../../lib/navigation';
+
+interface Props {
+  items: SidebarItem[];
+  pathname: string;
+  root?: boolean;
+}
+
+const { items, pathname, root = false } = Astro.props;
+const isCurrent = (item: SidebarItem) => item.href === pathname;
+const hasCurrent = (item: SidebarItem): boolean =>
+  Boolean((item.href && (pathname === item.href || pathname.startsWith(item.href))) || item.children?.some(hasCurrent));
+---
+<ul class:list={{ 'sidebar-list': root }}>
+  {items.map((item) => (
+    <li>
+      {item.children?.length ? (
+        <details open={hasCurrent(item)}>
+          <summary>
+            {item.href ? <a href={item.href} class:list={{ 'is-current': isCurrent(item) }}>{item.label}</a> : <span>{item.label}</span>}
+          </summary>
+          <Astro.self items={item.children} pathname={pathname} />
+        </details>
+      ) : (
+        <a href={item.href} class:list={{ 'is-current': isCurrent(item) }}>{item.label}</a>
+      )}
+    </li>
+  ))}
+</ul>

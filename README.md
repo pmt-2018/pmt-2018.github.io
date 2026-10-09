@@ -75,6 +75,13 @@ import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown �
 - `src/content/teaching/`：按课程和学期组织的教学材料
 - `src/content/notes/`：统一的长期笔记，包含算法、编程、工具与其他参考资料；首页和侧栏按 `category` 分组
 
+当前课程学期为 2026 秋，课程入口为 `/teaching/nju-ps/2026-fall/`，讲义放在
+`src/content/teaching/nju-ps/2026-fall/`。之前的 2026 春占位材料已删除。
+第 0 课的定稿大纲位于 `docs/teaching/getting-started-outline.md`，作为正式写作依据，不进入站点构建。
+正文为 `src/content/teaching/nju-ps/2026-fall/lectures/getting-started.md`。
+配套配置放在 `public/files/cpp-starter/` 和 `public/files/latex-workshop/`；修改这些目录后，
+执行 `python3 scripts/package-teaching-examples.py` 更新下载 ZIP。
+
 算法内容已合并到笔记，例如 `src/content/notes/graph/example.md` 对应 `/notes/graph/example/`。
 旧的 `/algorithms/` 和已迁移文章地址通过 `astro.config.mjs` 的静态跳转保留兼容。
 以后统一在 `notes` 集合中新增内容；不需要再维护独立的算法栏目。

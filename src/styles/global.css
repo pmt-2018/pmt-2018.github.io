@@ -82,6 +82,10 @@ h2 { margin-top: 3rem; font-size: 1.45rem; }
 .prose h2, .prose h3 { scroll-margin-top: 6rem; }
 .prose p, .prose ul, .prose ol { margin: 1rem 0; }
 .prose pre { overflow-x: auto; padding: 1rem; border-radius: .5rem; font-size: .9rem; }
+.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 1.5rem 0; font-size: .92rem; }
+.prose th, .prose td { padding: .65rem .8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.prose th { background: #faf9fc; }
+.prose p, .prose li, .prose td { overflow-wrap: anywhere; }
 .prose code:not(pre code) { padding: .12em .3em; background: #f3f3f3; border-radius: .25rem; }
 .prose blockquote { margin-left: 0; padding-left: 1rem; border-left: 3px solid #ddd; color: #666; }
 .prose img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: .5rem; }

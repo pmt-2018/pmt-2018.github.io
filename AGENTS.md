@@ -152,10 +152,12 @@ Example:
 ```text
 Teaching
 └── NJU Problem Solving
-    ├── 2026 Spring
     ├── 2026 Fall
+    ├── 2027 Spring
     └── Archive
 ```
+
+当前开课学期为 **2026 Fall / 2026 秋**，路径使用 `2026-fall`。之前的 `2026-spring` 占位材料已删除，不作为课程归档保留。
 
 Each semester is conceptually independent.
 
@@ -205,7 +207,7 @@ Example conceptual frontmatter:
 ---
 title: "Example Problem"
 course: "nju-problem-solving"
-semester: "2026-spring"
+semester: "2026-fall"
 week: 3
 category: "oj"
 tags:
@@ -300,8 +302,8 @@ Prefer one integrated site/repository rather than deploying every semester as an
 Typical URLs should resemble:
 
 ```text
-/teaching/nju-ps/2026-spring/
-/teaching/nju-ps/2026-spring/oj/...
+/teaching/nju-ps/2026-fall/
+/teaching/nju-ps/2026-fall/oj/...
 /notes/graph/...
 ```
 

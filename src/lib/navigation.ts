@@ -17,9 +17,9 @@ export function buildSidebar(
   noteEntries: CollectionEntry<'notes'>[],
 ): SidebarItem[] {
   if (pathname.startsWith('/teaching')) {
-    const semester = '/teaching/nju-ps/2026-spring/';
+    const semester = '/teaching/nju-ps/2026-fall/';
     const lectures = teachingEntries
-      .filter((entry) => entry.slug.startsWith('nju-ps/2026-spring/'))
+      .filter((entry) => entry.slug.startsWith('nju-ps/2026-fall/lectures/'))
       .sort((a, b) => (a.data.week ?? 999) - (b.data.week ?? 999))
       .map((entry) => link(entry.data.title, `/teaching/${entry.slug}/`));
 
@@ -29,7 +29,7 @@ export function buildSidebar(
         href: '/teaching/',
         children: [
           {
-            label: '2026 春',
+            label: '2026 秋',
             href: semester,
             children: [
               link('课程概览', semester),
