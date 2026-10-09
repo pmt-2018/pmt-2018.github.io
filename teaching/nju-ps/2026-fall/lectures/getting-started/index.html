@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="description" content="安装编译器，运行两数相加程序，学习 OJ 提交、查资料和求助。"><link rel="icon" href="data:,"><title>第 0 课：配置 C++ 环境并完成第一次 OJ 提交 · pmt2018</title><link rel="stylesheet" href="/_astro/about.Bthr3KUv.css">
+<style>.site-icon[data-astro-cid-patnjmll]{display:inline-block;width:1em;height:1em;flex:0 0 auto;vertical-align:-.15em}
+</style></head> <body> <a class="skip-link" href="#main-content">跳至正文</a> <div class="site-shell"> <header class="site-header"> <a class="site-title" href="/">pmt2018</a> <details class="mobile-menu"> <summary><span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path>  </svg> 菜单</span></summary> <nav aria-label="主导航"> <a href="/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house lucide-home site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>  </svg> 首页</span> </a><a class="active" aria-current="page" href="/teaching/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path>  </svg> 教学</span> </a><a href="/notes/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-text site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M2 6h4"></path><path d="M2 10h4"></path><path d="M2 14h4"></path><path d="M2 18h4"></path><rect width="16" height="20" x="4" y="2" rx="2"></rect><path d="M9.5 8h5"></path><path d="M9.5 12H16"></path><path d="M9.5 16H14"></path>  </svg> 笔记</span> </a><a href="/about/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round lucide-user-2 site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path>  </svg> 关于</span> </a> </nav> </details> <nav class="desktop-menu" aria-label="主导航"> <a href="/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house lucide-home site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>  </svg> 首页</span> </a><a class="active" aria-current="page" href="/teaching/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path>  </svg> 教学</span> </a><a href="/notes/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-text site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M2 6h4"></path><path d="M2 10h4"></path><path d="M2 14h4"></path><path d="M2 18h4"></path><rect width="16" height="20" x="4" y="2" rx="2"></rect><path d="M9.5 8h5"></path><path d="M9.5 12H16"></path><path d="M9.5 16H14"></path>  </svg> 笔记</span> </a><a href="/about/"> <span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round lucide-user-2 site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path>  </svg> 关于</span> </a> </nav> </header> <main id="main-content" tabindex="-1" class="has-docs-layout"> <div class="docs-layout"> <aside class="section-sidebar" aria-label="文档导航"> <div class="sidebar-label">本栏目</div> <nav> <ul class="sidebar-list"> <li> <details open> <summary> <a href="/teaching/">NJU Problem Solving</a> </summary> <ul> <li> <details open> <summary> <a href="/teaching/nju-ps/2026-fall/">2026 秋</a> </summary> <ul> <li> <a href="/teaching/nju-ps/2026-fall/">课程概览</a> </li><li> <a href="/teaching/nju-ps/2026-fall/schedule/">课程安排</a> </li><li> <details open> <summary> <span>讲义</span> </summary> <ul> <li> <a href="/teaching/nju-ps/2026-fall/lectures/getting-started/" class="is-current">第 0 课：配置 C++ 环境并完成第一次 OJ 提交</a> </li> </ul> </details> </li><li> <a href="/teaching/nju-ps/2026-fall/oj/">OJ 题解</a> </li><li> <a href="/teaching/nju-ps/2026-fall/faq/">常见问题与调试</a> </li> </ul> </details> </li> </ul> </details> </li> </ul> </nav> </aside> <details class="mobile-sidebar"> <summary>浏览本栏目</summary> <aside class="section-sidebar" aria-label="文档导航"> <div class="sidebar-label">本栏目</div> <nav> <ul class="sidebar-list"> <li> <details open> <summary> <a href="/teaching/">NJU Problem Solving</a> </summary> <ul> <li> <details open> <summary> <a href="/teaching/nju-ps/2026-fall/">2026 秋</a> </summary> <ul> <li> <a href="/teaching/nju-ps/2026-fall/">课程概览</a> </li><li> <a href="/teaching/nju-ps/2026-fall/schedule/">课程安排</a> </li><li> <details open> <summary> <span>讲义</span> </summary> <ul> <li> <a href="/teaching/nju-ps/2026-fall/lectures/getting-started/" class="is-current">第 0 课：配置 C++ 环境并完成第一次 OJ 提交</a> </li> </ul> </details> </li><li> <a href="/teaching/nju-ps/2026-fall/oj/">OJ 题解</a> </li><li> <a href="/teaching/nju-ps/2026-fall/faq/">常见问题与调试</a> </li> </ul> </details> </li> </ul> </details> </li> </ul> </nav> </aside> </details> <div class="docs-main"> <article class="page prose"> <p class="eyebrow">Teaching / nju-problem-solving</p> <h1>第 0 课：配置 C++ 环境并完成第一次 OJ 提交</h1> <p class="lead">安装编译器，运行两数相加程序，学习 OJ 提交、查资料和求助。</p> <p class="meta">标签：cpp · setup · oj · debugging</p> <p>这一课用一个“两数相加”程序，带你走完<strong>写代码 → 编译 → 运行 → 测试 → 提交</strong>的过程。</p>
+<p>第一次接触编程，按顺序操作。安装部分只看自己的系统；Windows 初学者可以选 WinLibs 主线，跳过另外两条路线。已有环境的同学从<a href="#%E7%8E%AF%E5%A2%83%E9%AA%8C%E8%AF%81">环境验证</a>开始。</p>
+<p>本地统一使用 <strong>C++20</strong>。提交到 OJ 时，按课程要求选择语言和标准。</p>
+<h2 id="1-准备一个练习文件夹">1. 准备一个练习文件夹</h2>
+<p>在容易找到的位置新建 <code>cpp-practice</code> 文件夹。源码和编译生成的程序都放在这里。</p>
+<p>Windows 用户在文件资源管理器的“查看”菜单中开启<strong>文件扩展名</strong>。扩展名是文件名末尾的部分，如 <code>.cpp</code>。开启后，能看出文件是否误存成了 <code>main.cpp.txt</code>。</p>
+<h2 id="2-配置-c-环境">2. 配置 C++ 环境</h2>
+<p><strong>编辑器</strong>用来写代码，<strong>编译器</strong>把代码变成可以运行的程序。本教程使用 VS Code 编辑器。安装 C/C++ 扩展后，仍需另外安装编译器。</p>
+<h3 id="windowsvs-code-与-winlibs主线">Windows：VS Code 与 WinLibs（主线）</h3>
+<ol>
+<li>
+<p>从 <a href="https://code.visualstudio.com/">VS Code 官网</a>下载并安装 VS Code。</p>
+</li>
+<li>
+<p>打开 <a href="https://winlibs.com/">WinLibs 下载页</a>，在 <strong>Release versions → UCRT runtime</strong> 下选择：</p>
+<ul>
+<li><strong>Win64</strong>；</li>
+<li><strong>POSIX threads</strong>；</li>
+<li><strong>without LLVM/Clang/LLD/LLDB</strong>；</li>
+<li><strong>Zip archive</strong>。</li>
+</ul>
+<p>选稳定版，不选 Win32 或 snapshot（快照版）。这套配置适用于 x86-64 Windows 10/11；ARM 电脑需另查对应的安装方式。</p>
+</li>
+<li>
+<p>解压到 <code>C:\mingw64</code>，确认能找到 <code>C:\mingw64\bin\g++.exe</code> 和 <code>gdb.exe</code>。注意不要多套一层 <code>mingw64</code> 文件夹。</p>
+</li>
+<li>
+<p>Windows 搜索“编辑账户的环境变量”，打开“环境变量”。在<strong>用户变量 → Path</strong> 中新建一项 <code>C:\mingw64\bin</code>，保存，保留原有条目。</p>
+<p><strong>PATH</strong> 是系统查找命令的目录列表。加上这个目录后，终端才能直接找到 <code>g++</code>。</p>
+</li>
+<li>
+<p>重新打开 VS Code。在“终端”面板的“+”旁下拉菜单中选择 <strong>Command Prompt / 命令提示符</strong>，执行：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bat"><code><span class="line"><span style="color:#24292E">g++ --version</span></span>
+<span class="line"><span style="color:#24292E">gdb --version</span></span></code></pre>
+<p>看到版本信息就表示工具可以找到。若提示找不到命令，检查 <code>bin</code> 路径，并重新打开 VS Code。</p>
+</li>
+</ol>
+<h3 id="windowsmsys2补充路线">Windows：MSYS2（补充路线）</h3>
+<p>已安装 WinLibs 的同学可以跳过。MSYS2 可以通过软件包管理器安装和更新编译器；本教程使用其中的 <strong>UCRT64</strong> 环境。</p>
+<ol>
+<li>
+<p>从 <a href="https://www.msys2.org/">MSYS2 官网</a>下载安装，使用默认目录 <code>C:\msys64</code>。</p>
+</li>
+<li>
+<p>从开始菜单打开 <strong>MSYS2 UCRT64</strong>，执行：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">pacman</span><span style="color:#005CC5"> -Syu</span></span></code></pre>
+<p>若提示关闭终端，关闭后重新打开 UCRT64，再执行一次更新命令。</p>
+</li>
+<li>
+<p>在同一个 UCRT64 终端安装 GCC 和 GDB：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">pacman</span><span style="color:#005CC5"> -S</span><span style="color:#005CC5"> --needed</span><span style="color:#032F62"> mingw-w64-ucrt-x86_64-gcc</span><span style="color:#032F62"> mingw-w64-ucrt-x86_64-gdb</span></span></code></pre>
+</li>
+<li>
+<p>按上一小节的方法，把 <code>C:\msys64\ucrt64\bin</code> 加入用户 PATH。</p>
+</li>
+<li>
+<p>重新打开 VS Code 的 <strong>Command Prompt</strong>，执行 <code>g++ --version</code> 和 <code>gdb --version</code> 检查。</p>
+</li>
+</ol>
+<p>后面的配置包要选 MSYS2 版，编译器和调试器都使用 <code>ucrt64\bin</code> 中的工具。</p>
+<h3 id="windows小熊猫-c备用选择">Windows：小熊猫 C++（备用选择）</h3>
+<p><a href="https://royqh.net/redpandacpp/">小熊猫 C++</a>也能编辑、编译和运行程序，旧资料中可能叫“小熊猫 Dev-C++”。如果选择它，可以跳过 VS Code 配置。</p>
+<ol>
+<li>在<a href="https://royqh.net/redpandacpp/download/">官方下载页</a>选择 Windows 64 位、带 MinGW/GCC 的包。按说明安装；绿色版解压后运行 <code>RedPandaIDE.exe</code>。</li>
+<li>新建 C++ 源文件，把第 3 节代码保存为 <code>main.cpp</code>。</li>
+<li>选择检测到的 GNU GCC 编译器集，在 C++ 编译选项中设置 C++20。若没有对应选项，可添加编译参数 <code>-std=c++20</code>。</li>
+<li>点击“编译运行”，输入 <code>2 3</code> 并回车，应得到 <code>5</code>。出现错误时，看编译信息，修改后保存并重新编译。</li>
+</ol>
+<p>菜单位置可查<a href="https://royqh.net/redpandacpp/docsy/docs/usage/">官方使用说明</a>。未检测到 GCC 时，先检查下载的包是否带编译器。</p>
+<h3 id="macosvs-code-与-clang">macOS：VS Code 与 Clang</h3>
+<ol>
+<li>
+<p>安装 <a href="https://code.visualstudio.com/">VS Code</a>。</p>
+</li>
+<li>
+<p>打开系统的“终端”应用，执行：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">xcode-select</span><span style="color:#005CC5"> --install</span></span></code></pre>
+<p>按提示安装 Apple Command Line Tools；如果已安装，继续下一步。</p>
+</li>
+<li>
+<p>执行 <code>clang++ --version</code>，确认能看到版本信息。</p>
+</li>
+</ol>
+<p>macOS 上的 <code>g++</code> 也可能指向 Clang。本文统一用 <code>clang++</code>，通过终端手动编译。</p>
+<h3 id="debian--ubuntu-linuxvs-code-与-gcc">Debian / Ubuntu Linux：VS Code 与 GCC</h3>
+<ol>
+<li>
+<p>安装 <a href="https://code.visualstudio.com/">VS Code</a>。</p>
+</li>
+<li>
+<p>打开终端，执行：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> apt</span><span style="color:#032F62"> update</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> apt</span><span style="color:#032F62"> install</span><span style="color:#032F62"> g++</span></span></code></pre>
+</li>
+<li>
+<p>执行 <code>g++ --version</code>，确认能看到版本信息。</p>
+</li>
+</ol>
+<p><code>sudo</code> 用于安装系统软件，后面编译和运行程序不需要它。若旧版 GCC 不支持 C++20，需按发行版说明更新编译器。其他发行版可参考 <a href="https://docs.fedoraproject.org/en-US/quick-docs/installing-from-source/">Fedora</a> 或 <a href="https://wiki.archlinux.org/title/GNU_Compiler_Collection">Arch Linux</a> 的说明。</p>
+<h3 id="环境验证">环境验证</h3>
+<p>用下面的命令检查编译器位置和版本：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>系统</th><th>查看位置</th><th>查看版本</th></tr></thead><tbody><tr><td>Windows Command Prompt</td><td><code>where g++</code></td><td><code>g++ --version</code></td></tr><tr><td>macOS</td><td><code>command -v clang++</code></td><td><code>clang++ --version</code></td></tr><tr><td>Linux</td><td><code>command -v g++</code></td><td><code>g++ --version</code></td></tr></tbody></table>
+<p>Windows 若列出多个路径，第一项应是你刚安装的编译器。</p>
+<h3 id="vs-code-扩展">VS Code 扩展</h3>
+<p>在 VS Code 左侧打开“扩展”，搜索下表中的 ID，核对发布者后安装。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>扩展（ID）</th><th>发布者</th><th>用途</th></tr></thead><tbody><tr><td><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</a>（<code>ms-vscode.cpptools</code>）</td><td>Microsoft</td><td>本课使用：代码提示和调试</td></tr><tr><td><a href="https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop">LaTeX Workshop</a>（<code>James-Yu.latex-workshop</code>）</td><td>James Yu</td><td>理论课需要时安装，配置见文末</td></tr><tr><td><a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner">Code Runner</a>（<code>formulahendry.code-runner</code>）</td><td>Jun Han</td><td>可选：快捷编译和运行单文件</td></tr><tr><td><a href="https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hans">简体中文语言包</a>（<code>MS-CEINTL.vscode-language-pack-zh-hans</code>）</td><td>Microsoft</td><td>可选：中文界面</td></tr></tbody></table>
+<p>Code Runner 调用已安装的编译器。建议先手动编译一次，再使用它。LaTeX Workshop 也需要另外安装 TeX 工具，按理论课安排准备即可。</p>
+<h3 id="windows-vs-code-配置包">Windows VS Code 配置包</h3>
+<p><strong>先完成第 3 节的手动编译，再回来设置快捷运行。</strong> macOS/Linux 使用后面的终端命令即可。</p>
+<ul>
+<li><a href="/files/cpp-starter/windows-winlibs.zip">WinLibs 配置包 ZIP</a> · <a href="/files/cpp-starter/windows-winlibs/README.md">使用说明</a></li>
+<li><a href="/files/cpp-starter/windows-msys2.zip">MSYS2 UCRT64 配置包 ZIP</a> · <a href="/files/cpp-starter/windows-msys2/README.md">使用说明</a></li>
+</ul>
+<p>按编译器路线下载一份，然后：</p>
+<ol>
+<li>解压，在 VS Code 中用“文件 → 打开文件夹”打开 <code>windows-winlibs</code> 或 <code>windows-msys2</code>。左侧应能看到 <code>main.cpp</code> 和 <code>.vscode</code>。</li>
+<li>安装 Microsoft C/C++ 扩展。若出现工作区信任提示，核对文件后信任该文件夹。</li>
+<li>打开并保存 <code>main.cpp</code>，保持这个标签页选中。按 <code>Ctrl+Shift+B</code> 编译，按 <code>Ctrl+F5</code> 运行；首次选择本包的 <code>C++: run active file</code> 配置。</li>
+<li>在下方终端输入 <code>2 3</code> 并回车，应输出 <code>5</code>。<code>F5</code> 可启动基本调试，本课暂不讲断点操作。</li>
+</ol>
+<p>包内的 <code>tasks.json</code> 负责 C++20 编译，<code>launch.json</code> 负责运行和调试，其余文件设置代码提示、终端和扩展推荐。<strong>配置包不含编译器。</strong></p>
+<p>默认工具目录是 <code>C:\mingw64\bin</code> 或 <code>C:\msys64\ucrt64\bin</code>。安装在其他位置时，在 <code>.vscode</code> 文件中统一替换路径，然后关闭旧终端、新建终端。</p>
+<p>Code Runner 没有列入默认扩展推荐。若自行安装，在命令面板执行 <strong>Run Code</strong>；配套设置会保存文件，用 C++20 编译，并在终端中运行和接收输入。</p>
+<h2 id="3-编写编译和运行两数相加">3. 编写、编译和运行“两数相加”</h2>
+<h3 id="创建源文件">创建源文件</h3>
+<p>用 VS Code 打开 <code>cpp-practice</code> 文件夹，新建 <code>main.cpp</code>，输入并保存：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#D73A49">#include</span><span style="color:#032F62"> &#x3C;iostream></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">int</span><span style="color:#6F42C1"> main</span><span style="color:#24292E">() {</span></span>
+<span class="line"><span style="color:#D73A49">    int</span><span style="color:#24292E"> a, b;</span></span>
+<span class="line"><span style="color:#6F42C1">    std</span><span style="color:#24292E">::cin </span><span style="color:#D73A49">>></span><span style="color:#24292E"> a </span><span style="color:#D73A49">>></span><span style="color:#24292E"> b;</span></span>
+<span class="line"><span style="color:#6F42C1">    std</span><span style="color:#24292E">::cout </span><span style="color:#D73A49">&#x3C;&#x3C;</span><span style="color:#24292E"> a </span><span style="color:#D73A49">+</span><span style="color:#24292E"> b </span><span style="color:#D73A49">&#x3C;&#x3C;</span><span style="color:#032F62"> '</span><span style="color:#005CC5">\n</span><span style="color:#032F62">'</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<p>程序读取两个整数，输出它们的和。练习时，每个数取 <code>-1000</code> 到 <code>1000</code> 之间的整数。</p>
+<p><code>#include &#x3C;iostream></code> 引入输入输出功能，<code>main</code> 是程序入口。<code>std::cin</code> 读取输入，<code>std::cout</code> 输出结果，<code>'\n'</code> 表示换行。其他语法会在后面的课程中学习。</p>
+<h3 id="打开终端找到源文件">打开终端，找到源文件</h3>
+<p>在 VS Code 中选择“终端 → 新建终端”。<strong>终端</strong>是输入命令、查看输出的窗口。Windows 请在“+”旁下拉菜单中选 <strong>Command Prompt</strong>；提示符以 <code>PS</code> 开头的是 PowerShell，不适用本文的 Windows 命令。</p>
+<p>检查当前文件夹：</p>
+<p>Windows Command Prompt：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bat"><code><span class="line"><span style="color:#D73A49">cd</span></span>
+<span class="line"><span style="color:#D73A49">dir</span></span></code></pre>
+<p>macOS/Linux：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#005CC5">pwd</span></span>
+<span class="line"><span style="color:#6F42C1">ls</span></span></code></pre>
+<p>第一条显示位置，第二条列出文件，应能看到 <code>main.cpp</code>。终端当前所在的文件夹叫<strong>工作目录</strong>，编译器会从这里找源码。</p>
+<p>若找不到文件，检查 VS Code 是否打开了正确的文件夹。也可以切换目录，下面的路径要换成你自己的：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bat"><code><span class="line"><span style="color:#D73A49">cd</span><span style="color:#24292E"> /d </span><span style="color:#032F62">"D:\course work\cpp-practice"</span></span></code></pre>
+<p>macOS/Linux 用 <code>cd "文件夹的完整路径"</code>。路径含空格时加引号；Windows 的 <code>/d</code> 允许同时切换盘符。</p>
+<h3 id="编译并运行">编译并运行</h3>
+<p>按自己的系统执行一条命令：</p>
+<p>Windows Command Prompt：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bat"><code><span class="line"><span style="color:#24292E">g++ -std=c++20 -Wall -Wextra -Wpedantic main.cpp -o main.exe </span><span style="color:#D73A49">&#x26;&#x26;</span><span style="color:#24292E"> main.exe</span></span></code></pre>
+<p>macOS：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">clang++</span><span style="color:#005CC5"> -std=c++20</span><span style="color:#005CC5"> -Wall</span><span style="color:#005CC5"> -Wextra</span><span style="color:#005CC5"> -Wpedantic</span><span style="color:#032F62"> main.cpp</span><span style="color:#005CC5"> -o</span><span style="color:#032F62"> main</span><span style="color:#24292E"> &#x26;&#x26; </span><span style="color:#6F42C1">./main</span></span></code></pre>
+<p>Debian/Ubuntu：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">g++</span><span style="color:#005CC5"> -std=c++20</span><span style="color:#005CC5"> -Wall</span><span style="color:#005CC5"> -Wextra</span><span style="color:#005CC5"> -Wpedantic</span><span style="color:#032F62"> main.cpp</span><span style="color:#005CC5"> -o</span><span style="color:#032F62"> main</span><span style="color:#24292E"> &#x26;&#x26; </span><span style="color:#6F42C1">./main</span></span></code></pre>
+<p>这些命令先编译，再运行：</p>
+<ul>
+<li><code>-std=c++20</code>：使用 C++20。</li>
+<li><code>-Wall -Wextra -Wpedantic</code>：开启常用警告。</li>
+<li><code>-o</code>：指定生成的程序名，Windows 是 <code>main.exe</code>，macOS/Linux 是 <code>main</code>。</li>
+<li><code>&#x26;&#x26;</code>：编译成功才运行。<code>./main</code> 中的 <code>./</code> 表示当前文件夹。</li>
+</ul>
+<p>运行后，在终端输入：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>2 3</span></span></code></pre>
+<p>按回车，应看到：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>5</span></span></code></pre>
+<p>两个整数用空格或换行分隔都可以。程序没有打印“请输入两个数”，这是为了符合 OJ 的输出要求。没有马上出结果时，先检查是否还在等输入。</p>
+<p>若编译出现 <code>error:</code>，从第一条错误开始看，注意文件名和行号。以实际编译结果为准，编辑器的代码提示可能与它不同。</p>
+<h3 id="修改后重新编译">修改后重新编译</h3>
+<ol>
+<li>把 <code>a + b</code> 改成 <code>a - b</code>，保存，再执行编译运行命令。输入 <code>2 3</code>，应输出 <code>-1</code>。</li>
+<li>恢复成相加，再删去 <code>std::cout</code> 那一行末尾的分号。保存、编译，观察报错。</li>
+<li>恢复分号，保存并重新编译。</li>
+</ol>
+<p>编译失败时，磁盘上可能还留着旧程序。上面的 <code>&#x26;&#x26;</code> 会阻止它继续运行，避免把旧结果当成修改后的结果。</p>
+<h2 id="4-本地测试">4. 本地测试</h2>
+<p>每次运行前，先自己算出答案，再比较程序输出：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>输入</th><th align="right">预期输出</th></tr></thead><tbody><tr><td><code>2 3</code></td><td align="right"><code>5</code></td></tr><tr><td><code>0 7</code></td><td align="right"><code>7</code></td></tr><tr><td><code>-4 1</code></td><td align="right"><code>-3</code></td></tr></tbody></table>
+<p>只通过样例还不够，真实题目还要检查边界数据和输入输出格式。</p>
+<p>程序等待输入时，点击终端，输入数字并回车。需要中止运行时，按 <code>Ctrl+C</code>。</p>
+<p><strong>选读：从文件输入。</strong> 把 <code>2 3</code> 保存到同一目录的 <code>input.txt</code>。成功编译后，Windows 执行 <code>main.exe &#x3C; input.txt</code>，macOS/Linux 执行 <code>./main &#x3C; input.txt</code>，应输出 <code>5</code>。<code>&#x3C;</code> 把文件内容交给程序作为输入。</p>
+<p>键盘或文件提供的数据叫<strong>标准输入</strong>，<code>std::cout</code> 的答案输出叫<strong>标准输出</strong>。还有用于输出诊断的<strong>标准错误</strong>，C++ 中可用 <code>std::cerr</code>。</p>
+<h2 id="5-遇到问题查资料和求助">5. 遇到问题：查资料和求助</h2>
+<p>先确定卡在哪一步：安装、编译、运行，还是答案不对。保留命令和完整报错，一次只改一项，再检查结果。</p>
+<h3 id="怎样搜索和读文档">怎样搜索和读文档</h3>
+<p>STFW 大意是“先搜索”，RTFM 大意是“先读手册”，都是带有粗鲁语气的网络缩写。这里借它们介绍查资料的方法。不会搜、看不懂，或尝试后仍卡住，都可以直接求助。</p>
+<p>搜索时，把<strong>工具名 + 关键报错 + 系统</strong>放在一起。例如，把“C++ 不能用”改成：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>VS Code g++ is not recognized Windows Command Prompt</span></span></code></pre>
+<p>尽量保留原始英文报错。阅读结果时，核对系统和版本；安装方法、配置选项优先查官方文档。</p>
+<p>例如，<code>g++ --version</code> 提示“不是内部或外部命令”时，依次检查：</p>
+<ol>
+<li>编译器是否已安装，<code>bin</code> 目录里是否有 <code>g++.exe</code>。</li>
+<li>PATH 是否指向这个 <code>bin</code> 目录。</li>
+<li>修改 PATH 后，是否重新打开了 VS Code 和终端。</li>
+</ol>
+<p>修正后再执行 <code>g++ --version</code>，看到版本信息就可以继续。</p>
+<h3 id="选择哪种帮助">选择哪种帮助</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>途径</th><th>适合做什么</th><th>需要核对什么</th></tr></thead><tbody><tr><td>搜索引擎</td><td>找到相同报错的讨论</td><td>系统和版本是否相同</td></tr><tr><td>官方文档</td><td>查安装方法、配置含义</td><td>是否对应所用版本</td></tr><tr><td>AI</td><td>解释报错、整理检查步骤</td><td>建议是否适用，能否验证</td></tr><tr><td>老师、助教、同学</td><td>了解课程规则，或一起排查</td><td>是否提供了代码、输入和报错</td></tr></tbody></table>
+<h3 id="怎样用-ai-辅助排查">怎样用 AI 辅助排查</h3>
+<p>把环境、目标、命令和报错一起提供给 AI，请它解释原因和检查方法。例如：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>我在 Windows 的 VS Code Command Prompt 中使用 WinLibs GCC。</span></span>
+<span class="line"><span>main.cpp 在当前文件夹，输入 2 3 应输出 5。</span></span>
+<span class="line"><span>我执行了：g++ -std=c++20 main.cpp -o main.exe</span></span>
+<span class="line"><span>报错是：[粘贴完整报错]</span></span>
+<span class="line"><span>请解释错误，并给出两三项检查步骤。</span></span></code></pre>
+<p>AI 可能猜错，也看不到你没提供的电脑信息。理解建议后逐项尝试，用实际结果验证；不要反复只说“还是不行”。作业中如何使用 AI，按课程规定执行。</p>
+<h3 id="怎样提问">怎样提问</h3>
+<p>“运行不了”很难判断原因。用下面的模板补齐信息，命令、代码和报错尽量复制成文字。代码问题附上能复现错误的最短代码和输入；界面问题可附截图。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>我想完成：</span></span>
+<span class="line"><span>操作系统、工具和版本：</span></span>
+<span class="line"><span>文件位置与执行的命令：</span></span>
+<span class="line"><span>代码或操作步骤：</span></span>
+<span class="line"><span>输入与预期输出：</span></span>
+<span class="line"><span>实际结果与完整报错：</span></span>
+<span class="line"><span>已尝试的方法及结果：</span></span></code></pre>
+<p>试着用第 3 节的分号错误写一个搜索词或问题描述，再重新编译验证你得到的解释。</p>
+<h2 id="6-使用课程-oj">6. 使用课程 OJ</h2>
+<p>OJ（Online Judge，在线评测系统）会编译你提交的源码，用测试数据运行，再判断结果。入口、账号、截止时间和提交规则以课程通知为准。</p>
+<ol>
+<li>从课程提供的入口登录，找到本次作业和题目，核对题名、题号。</li>
+<li>读清题目要求、输入输出格式、数据范围，以及时间和内存限制。</li>
+<li>在本地保存、编译，测试样例和自己构造的数据，删除多余提示和调试输出。</li>
+<li>按要求粘贴或上传<strong>源码</strong>，不是 <code>main.exe</code>。选择课程要求的 C++ 语言选项。</li>
+<li>找到本次提交记录，核对时间、代码和评测结果。修改后再次提交，要查看对应的新记录。</li>
+</ol>
+<p>本文的“两数相加”是自拟练习：一组输入，两个 <code>-1000</code> 到 <code>1000</code> 的整数，输出它们的和并换行。例如，输入 <code>2 3</code>，输出 <code>5</code>。</p>
+<p>如果课程有类似题目，先核对要求，再提交。真实题目可能有多组输入、要求读到 EOF（文件结束），或只提交一个函数，不能直接照搬完整程序。数据范围影响类型和算法的选择；时间、内存限制规定程序可使用的资源。</p>
+<h2 id="7-看懂评测反馈">7. 看懂评测反馈</h2>
+<p>下面是常见状态，具体名称以课程 OJ 为准。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>状态</th><th>含义</th><th>先检查什么</th></tr></thead><tbody><tr><td>Pending / 评测中</td><td>尚无最终结果</td><td>等待，稍后查看记录</td></tr><tr><td>AC</td><td>通过评测</td><td>确认课程作业的完成状态</td></tr><tr><td>CE</td><td>编译失败</td><td>编译报错、语言选项和代码</td></tr><tr><td>WA</td><td>答案错误</td><td>题意、输入输出格式和边界数据</td></tr><tr><td>RE</td><td>运行时异常</td><td>越界、除以零等问题</td></tr><tr><td>TLE</td><td>运行超时</td><td>死循环或计算量过大</td></tr><tr><td>MLE</td><td>内存超限</td><td>数组、容器等是否过大</td></tr></tbody></table>
+<p><strong>本地能运行、样例通过、OJ 通过是不同的结果。</strong> 例如，误写成减法也能运行，输入 <code>0 0</code> 甚至会得到正确答案，但输入 <code>2 3</code> 就错了。要按题意检查，不能只凭一次运行判断。</p>
+<h2 id="8-完成检查">8. 完成检查</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 能找到源码，知道终端当前在哪个文件夹。</li>
+<li class="task-list-item"><input type="checkbox" disabled> 能检查编译器版本，编译并运行程序。</li>
+<li class="task-list-item"><input type="checkbox" disabled> 修改后会保存、重新编译，并测试结果。</li>
+<li class="task-list-item"><input type="checkbox" disabled> 能保留报错，查资料或描述问题求助。</li>
+<li class="task-list-item"><input type="checkbox" disabled> 能提交源码，找到对应记录并理解评测结果。</li>
+</ul>
+<p>完成后，可以继续学习基本类型、表达式和控制流程。</p>
+<h2 id="常见问题速查">常见问题速查</h2>
+<h3 id="找不到-g-命令">找不到 <code>g++</code> 命令</h3>
+<p>检查编译器是否安装、PATH 中的 <code>bin</code> 路径是否正确，然后重新打开 VS Code。MSYS2 用户应使用 UCRT64 的工具。</p>
+<h3 id="找不到-maincpp">找不到 <code>main.cpp</code></h3>
+<p>用 <code>dir</code>（Windows）或 <code>ls</code>（macOS/Linux）检查当前文件夹。文件不在这里就切换目录；Windows 还要检查是否误存成了 <code>main.cpp.txt</code>。</p>
+<h3 id="编译后没有消息">编译后没有消息</h3>
+<p>编译成功时可能没有提示。单独编译后，检查是否生成了 <code>main.exe</code> 或 <code>main</code>；本文的 <code>&#x26;&#x26;</code> 命令会接着运行程序。</p>
+<h3 id="修改代码后输出没变">修改代码后，输出没变</h3>
+<p>先保存，再重新编译。编译失败时，不要运行旧的可执行文件。</p>
+<h3 id="路径有空格命令出错">路径有空格，命令出错</h3>
+<p>给完整路径加引号。Windows 切换目录用 <code>cd /d "完整路径"</code>。</p>
+<h3 id="程序不能输入或一直不结束">程序不能输入，或一直不结束</h3>
+<p>点击下方“终端”面板输入并回车。需要停止时，在终端按 <code>Ctrl+C</code>。</p>
+<p>Code Runner 的“输出”面板不能输入。检查 <code>code-runner.runInTerminal</code> 是否为 <code>true</code>，关闭旧的 <code>Code</code> 终端再运行；使用配套配置包可直接在终端输入。</p>
+<h3 id="代码提示与编译结果不一致">代码提示与编译结果不一致</h3>
+<p>检查 <code>.vscode/settings.json</code> 和 <code>c_cpp_properties.json</code> 中的编译器路径。代码提示设置不会改变手动编译时调用的工具。</p>
+<h3 id="本地通过oj-返回-ce-或-wa">本地通过，OJ 返回 CE 或 WA</h3>
+<p>CE 先看报错和语言选项；WA 重新核对格式、边界数据和多余输出。确认看的记录对应最新代码。</p>
+<h3 id="无法访问-oj或找不到课程提交记录">无法访问 OJ，或找不到课程、提交记录</h3>
+<p>核对课程通知中的入口、账号和网络要求。把网址、时间和页面提示提供给课程指定的求助渠道。</p>
+<h2 id="术语表">术语表</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody><tr><td>扩展名</td><td>文件名末尾表示类型的部分，如 <code>.cpp</code></td></tr><tr><td>源文件</td><td>保存代码的文件，如 <code>main.cpp</code></td></tr><tr><td>路径</td><td>文件或文件夹的位置；完整路径指向固定位置，相对路径从当前目录开始找</td></tr><tr><td>工作目录</td><td>终端当前所在的文件夹</td></tr><tr><td>终端</td><td>输入命令、查看输出的窗口</td></tr><tr><td>Shell</td><td>解释命令的程序，如 Command Prompt、PowerShell、Bash</td></tr><tr><td>编译器</td><td>把源码变成可运行程序的工具</td></tr><tr><td>可执行文件</td><td>编译生成的程序，如 <code>main.exe</code></td></tr><tr><td>PATH</td><td>系统查找命令的目录列表</td></tr><tr><td>标准输入 / 输出 / 错误</td><td>程序接收数据、输出答案、输出诊断的通道</td></tr><tr><td>OJ</td><td>编译、运行并评测所提交程序的网站</td></tr><tr><td>测试用例</td><td>一组输入和对应的预期输出</td></tr></tbody></table>
+<h2 id="官方资料与配置文件">官方资料与配置文件</h2>
+<ul>
+<li>安装：<a href="https://code.visualstudio.com/">VS Code</a>、<a href="https://winlibs.com/">WinLibs</a>、<a href="https://www.msys2.org/">MSYS2</a>、<a href="https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/">Apple Command Line Tools</a>、<a href="https://royqh.net/redpandacpp/download/">小熊猫 C++</a>。</li>
+<li>扩展：<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">Microsoft C/C++</a>、<a href="https://github.com/formulahendry/vscode-code-runner">Code Runner</a>、LaTeX Workshop 的<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Install">安装要求</a>与<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Compile">编译说明</a>。</li>
+<li>配置：<a href="/files/cpp-starter/windows-winlibs.zip">WinLibs ZIP</a>、<a href="/files/cpp-starter/windows-msys2.zip">MSYS2 ZIP</a>、<a href="/files/latex-workshop.zip">LaTeX Workshop ZIP</a>。</li>
+</ul>
+<h2 id="附录latex-workshop-基本配置">附录：LaTeX Workshop 基本配置</h2>
+<p>理论课需要 LaTeX 时，安装 <code>James-Yu.latex-workshop</code>。TeX 发行版按理论课安排安装；本节不讲 LaTeX 语法。</p>
+<p>配套配置使用 <code>latexmk</code> 和 XeLaTeX。先执行 <code>latexmk --version</code>、<code>xelatex --version</code> 检查工具。MiKTeX 用户还需安装 Perl，见<a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/Install">插件安装说明</a>。</p>
+<ol>
+<li>用 VS Code 打开理论作业文件夹。</li>
+<li>把<a href="/files/latex-workshop/.vscode/settings.json">配置文件</a>放到该文件夹的 <code>.vscode/settings.json</code>。已有设置时，只合并 <code>latex-workshop.*</code> 字段。</li>
+<li>打开 <code>.tex</code> 文件，在命令面板执行 <strong>LaTeX Workshop: Build LaTeX project</strong>，再执行 <strong>LaTeX Workshop: View LaTeX PDF file</strong>。</li>
+</ol>
+<p>配置关闭自动编译，在编辑器标签页预览 PDF。课程模板若要求其他编译引擎或已有配置，沿用模板说明。</p>
+<p>如果只想关闭自动编译、在编辑器预览 PDF，添加这两项即可；它们不设置编译引擎：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#24292E">{</span></span>
+<span class="line"><span style="color:#005CC5">  "latex-workshop.latex.autoBuild.run"</span><span style="color:#24292E">: </span><span style="color:#032F62">"never"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#005CC5">  "latex-workshop.view.pdf.viewer"</span><span style="color:#24292E">: </span><span style="color:#032F62">"tab"</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<p>合并 JSON 时，字段之间用逗号分隔，不要把两组 <code>{}</code> 直接拼起来。编译失败时，查看 LaTeX Workshop 日志，检查工具安装和模板要求。</p> </article> </div> <aside class="table-of-contents" aria-label="本文目录"><div class="toc-label">本文目录</div><nav><ul><li><a href="#1-准备一个练习文件夹">1. 准备一个练习文件夹</a></li><li><a href="#2-配置-c-环境">2. 配置 C++ 环境</a></li><li class="toc-subitem"><a href="#windowsvs-code-与-winlibs主线">Windows：VS Code 与 WinLibs（主线）</a></li><li class="toc-subitem"><a href="#windowsmsys2补充路线">Windows：MSYS2（补充路线）</a></li><li class="toc-subitem"><a href="#windows小熊猫-c备用选择">Windows：小熊猫 C++（备用选择）</a></li><li class="toc-subitem"><a href="#macosvs-code-与-clang">macOS：VS Code 与 Clang</a></li><li class="toc-subitem"><a href="#debian--ubuntu-linuxvs-code-与-gcc">Debian / Ubuntu Linux：VS Code 与 GCC</a></li><li class="toc-subitem"><a href="#环境验证">环境验证</a></li><li class="toc-subitem"><a href="#vs-code-扩展">VS Code 扩展</a></li><li class="toc-subitem"><a href="#windows-vs-code-配置包">Windows VS Code 配置包</a></li><li><a href="#3-编写编译和运行两数相加">3. 编写、编译和运行“两数相加”</a></li><li class="toc-subitem"><a href="#创建源文件">创建源文件</a></li><li class="toc-subitem"><a href="#打开终端找到源文件">打开终端，找到源文件</a></li><li class="toc-subitem"><a href="#编译并运行">编译并运行</a></li><li class="toc-subitem"><a href="#修改后重新编译">修改后重新编译</a></li><li><a href="#4-本地测试">4. 本地测试</a></li><li><a href="#5-遇到问题查资料和求助">5. 遇到问题：查资料和求助</a></li><li class="toc-subitem"><a href="#怎样搜索和读文档">怎样搜索和读文档</a></li><li class="toc-subitem"><a href="#选择哪种帮助">选择哪种帮助</a></li><li class="toc-subitem"><a href="#怎样用-ai-辅助排查">怎样用 AI 辅助排查</a></li><li class="toc-subitem"><a href="#怎样提问">怎样提问</a></li><li><a href="#6-使用课程-oj">6. 使用课程 OJ</a></li><li><a href="#7-看懂评测反馈">7. 看懂评测反馈</a></li><li><a href="#8-完成检查">8. 完成检查</a></li><li><a href="#常见问题速查">常见问题速查</a></li><li class="toc-subitem"><a href="#找不到-g-命令">找不到 g++ 命令</a></li><li class="toc-subitem"><a href="#找不到-maincpp">找不到 main.cpp</a></li><li class="toc-subitem"><a href="#编译后没有消息">编译后没有消息</a></li><li class="toc-subitem"><a href="#修改代码后输出没变">修改代码后，输出没变</a></li><li class="toc-subitem"><a href="#路径有空格命令出错">路径有空格，命令出错</a></li><li class="toc-subitem"><a href="#程序不能输入或一直不结束">程序不能输入，或一直不结束</a></li><li class="toc-subitem"><a href="#代码提示与编译结果不一致">代码提示与编译结果不一致</a></li><li class="toc-subitem"><a href="#本地通过oj-返回-ce-或-wa">本地通过，OJ 返回 CE 或 WA</a></li><li class="toc-subitem"><a href="#无法访问-oj或找不到课程提交记录">无法访问 OJ，或找不到课程、提交记录</a></li><li><a href="#术语表">术语表</a></li><li><a href="#官方资料与配置文件">官方资料与配置文件</a></li><li><a href="#附录latex-workshop-基本配置">附录：LaTeX Workshop 基本配置</a></li></ul></nav></aside> </div> </main> <footer class="site-footer"> <span>pmt2018 · 教学材料与学习笔记</span> <nav class="footer-links" aria-label="补充链接"> <a href="/cv/"><span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path>  </svg> 简历（待补充）</span></a> <a href="https://github.com/pmt-2018/pmt-2018.github.io"><span class="icon-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-xml lucide-code-2 site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path>  </svg> 网站源码<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link site-icon" aria-hidden="true" focusable="false" data-astro-cid-patnjmll="true"> <path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>  </svg> </span></a> </nav> </footer> </div> <script type="module">const o=[...document.querySelectorAll(".table-of-contents a")],s=o.map(e=>document.getElementById(e.getAttribute("href")?.slice(1)||"")).filter(e=>!!e);if(o.length&&s.length){const e=new IntersectionObserver(t=>{t.forEach(r=>{r.isIntersecting&&o.forEach(n=>n.classList.toggle("is-current",n.hash===`#${r.target.id}`))})},{rootMargin:"-15% 0px -70% 0px"});s.forEach(t=>e.observe(t))}</script> </body> </html>
