@@ -20,8 +20,6 @@ jobs:
         uses: withastro/action@v3
         with:
           node-version: 20
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
 
   deploy:
     needs: build
