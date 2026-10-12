@@ -94,7 +94,8 @@ h2 { margin-top: 3rem; font-size: 1.45rem; }
 .prose details { margin: 1.25rem 0; padding: .75rem 1rem; border: 1px solid var(--line); border-radius: .4rem; }
 .prose details summary { cursor: pointer; font-weight: 650; }
 .prose .test-callout { margin: 1.25rem 0; padding: 1rem 1.1rem; border-left: 3px solid var(--accent); background: #faf8ff; }
-.meta { color: var(--muted); font-size: .9rem; }
+.content-meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin: 1.25rem 0 2rem; color: var(--muted); font-size: .88rem; }
+.entry-meta { margin-top: .25rem; font-size: .85rem !important; }
 .site-footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
 .footer-links { gap: 1rem; font-size: inherit; }
 .footer-links a { text-decoration: underline; text-underline-offset: .2em; }

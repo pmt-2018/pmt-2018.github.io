@@ -1,0 +1,21 @@
+---
+import { formatDate } from '../lib/content';
+
+interface Props {
+  publishedDate?: Date;
+  updatedDate?: Date;
+  tags?: string[];
+}
+
+const { publishedDate, updatedDate, tags = [] } = Astro.props;
+const publishedLabel = formatDate(publishedDate);
+const updatedLabel = formatDate(updatedDate);
+---
+
+{(publishedLabel || updatedLabel || tags.length > 0) && (
+  <div class="content-meta" aria-label="文章信息">
+    {publishedLabel && <span>发布于 <time datetime={publishedDate?.toISOString()}>{publishedLabel}</time></span>}
+    {updatedLabel && <span>最后更新 <time datetime={updatedDate?.toISOString()}>{updatedLabel}</time></span>}
+    {tags.length > 0 && <span>标签：{tags.join(' · ')}</span>}
+  </div>
+)}

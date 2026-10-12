@@ -91,7 +91,24 @@ import 路径按文章位置调整。普通 C++ 代码块继续使用 Markdown �
 
 普通文章使用 Markdown；需要嵌入组件时再使用 MDX。文章的 frontmatter 由 `src/content.config.ts` 校验。
 
+文章标题下显示发布时间和最后更新时间，日期由作者在 frontmatter 中维护：
+
+```yaml
+publishedDate: 2026-10-09
+updatedDate: 2026-10-13
+```
+
+`publishedDate` 是首次公开日期，`updatedDate` 是最近一次内容修改日期。未填写的字段不显示；
+仅修改样式或重新构建时，不需要更新文章日期。现有文章的初始日期按 Git 首次加入和最近修改日期补齐，
+如实际公开日期不同可直接修正。`releaseDate` 仍只用于控制延迟公开，不代替这两个字段。
+
 OJ 内容可以使用 `published: false` 和 `releaseDate` 延迟公开。未满足发布条件的内容不会进入静态构建。
+
+## 许可
+
+原创文章、课程材料和图表采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)，
+网站源码和原创代码示例采用 [MIT License](LICENSE-CODE)。第三方材料（包括 OJ 题目截图）和依赖遵循其原有许可。
+网站页脚链接到 `/license/`，仓库许可范围见 [LICENSE](LICENSE)。
 
 ## 部署
 

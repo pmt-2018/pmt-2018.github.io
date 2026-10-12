@@ -4,6 +4,8 @@ const contentSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   published: z.boolean().default(true),
+  publishedDate: z.coerce.date().optional(),
+  updatedDate: z.coerce.date().optional(),
   releaseDate: z.coerce.date().optional(),
   tags: z.array(z.string()).default([]),
   category: z.string().optional(),

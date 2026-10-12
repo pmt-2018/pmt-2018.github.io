@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { isPublished } from '../../lib/content';
+import ContentMeta from '../../components/ContentMeta.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('teaching', (entry) => isPublished(entry));
@@ -13,10 +14,9 @@ const { Content, headings } = await render(entry);
 ---
 <BaseLayout title={entry.data.title} description={entry.data.description} headings={headings}>
   <article class="page prose">
-    <p class="eyebrow">Teaching{entry.data.course ? ` / ${entry.data.course}` : ''}</p>
     <h1>{entry.data.title}</h1>
     {entry.data.description && <p class="lead">{entry.data.description}</p>}
-    <p class="meta">{entry.data.tags.length ? `标签：${entry.data.tags.join(' · ')}` : ''}</p>
+    <ContentMeta publishedDate={entry.data.publishedDate} updatedDate={entry.data.updatedDate} tags={entry.data.tags} />
     <Content />
   </article>
 </BaseLayout>

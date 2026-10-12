@@ -7,6 +7,8 @@ week: 1
 category: "lecture"
 tags: [cpp, setup, oj, debugging]
 published: true
+publishedDate: 2026-10-09
+updatedDate: 2026-10-09
 ---
 
 这一课用一个“两数相加”程序，带你走完**写代码 → 编译 → 运行 → 测试 → 提交**的过程。

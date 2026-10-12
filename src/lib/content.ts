@@ -11,3 +11,12 @@ export function sortByDate(entries: ContentEntry[]) {
     (a, b) => (b.data.releaseDate?.getTime() ?? 0) - (a.data.releaseDate?.getTime() ?? 0),
   );
 }
+
+export function formatDate(date?: Date) {
+  return date?.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Asia/Shanghai',
+  });
+}

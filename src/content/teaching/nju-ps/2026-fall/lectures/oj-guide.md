@@ -7,6 +7,8 @@ week: 1
 category: "lecture"
 tags: [oj, testing]
 published: true
+publishedDate: 2026-10-09
+updatedDate: 2026-10-09
 ---
 
 psoj 会伴随你度过两年美好的问题求解课程时光（如果你学业顺利的话），因此学习 psoj 的基本功能并熟练掌握之是必要的。
